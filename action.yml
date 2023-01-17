@@ -1,0 +1,23 @@
+name: 'Build Go from source'
+description: 'build and test go on tip'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Clone master of go
+      uses: shell
+      run: |
+        git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go
+        cd go/src
+        git log -1 --pretty=short
+
+    - name: Build
+      uses: shell
+      run: |
+        cd go/src
+        export GOROOT_BOOTSTRAP=$(go env GOROOT)
+        sh ./all.bash
+
+branding:
+  icon: crosshair
+  color: blue
