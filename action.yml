@@ -5,14 +5,14 @@ runs:
   using: "composite"
   steps:
     - name: Clone master of go
-      uses: shell
+      shell: bash
       run: |
         git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go
         cd go/src
-        git log -1 --pretty=short
+        git log -1 --pretty=short 
 
     - name: Build
-      uses: shell
+      shell: bash
       run: |
         cd go/src
         export GOROOT_BOOTSTRAP=$(go env GOROOT)
