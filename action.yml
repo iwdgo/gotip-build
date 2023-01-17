@@ -7,9 +7,7 @@ runs:
     - name: Clone master of go
       shell: bash
       run: |
-        git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go
-        cd go/src
-        git log -1 --pretty=short 
+        git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go 
 
     - name: Build
       shell: bash
