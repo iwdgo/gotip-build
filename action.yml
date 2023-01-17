@@ -8,8 +8,7 @@ runs:
       shell: bash
       run: |
         git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go
-        cd go/src
-        git log -1 --pretty=short 
+        cd go/src 
 
     - name: Build
       shell: bash
