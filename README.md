@@ -8,7 +8,7 @@ Usage:
 ```
 
     - name: Build Go from source
-      uses: actions/gotip-build@v0
+      uses: iwdgo/gotip-build@v0.0.0
       id: gotip
 
 ```
