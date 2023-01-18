@@ -13,7 +13,7 @@ runs:
       shell: bash
       run: |
         cd go/src
-        GOROOT_BOOTSTRAP = go env GOROOT
+        $GOROOT_BOOTSTRAP = go env GOROOT
         .\all.bat
         ..\bin\go.exe version
 
