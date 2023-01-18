@@ -1,5 +1,5 @@
-name: 'Build Go from source'
-description: 'build and test go on tip'
+name: 'Build Go from source on Windows'
+description: 'build and test go on tip using Windows'
 
 runs:
   using: "composite"
@@ -8,14 +8,14 @@ runs:
       shell: bash
       run: |
         git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go
-        cd go/src 
 
     - name: Build
       shell: bash
       run: |
         cd go/src
-        export GOROOT_BOOTSTRAP=$(go env GOROOT)
-        sh ./all.bash
+        GOROOT_BOOTSTRAP = go env GOROOT
+        .\all.bat
+        ..\bin\go.exe version
 
 branding:
   icon: crosshair
