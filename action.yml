@@ -5,12 +5,12 @@ runs:
   using: "composite"
   steps:
     - name: Clone master of go
-      shell: bash
+      shell: powershell
       run: |
         git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go
 
     - name: Build
-      shell: bash
+      shell: powershell
       run: |
         cd go/src
         $GOROOT_BOOTSTRAP = go env GOROOT
