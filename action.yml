@@ -1,20 +1,29 @@
 name: 'Build Go from source'
 description: 'build and test go on tip'
-
+inputs:
+  test_build:
+    description: 'When set to true, all tests of build are executed'
+    required: false
+    default: 'true'
 runs:
   using: "composite"
   steps:
     - name: Clone master of go
       shell: bash
-      run: |
-        git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go 
-
+      run: git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go
     - name: Build
       shell: bash
       run: |
         cd go/src
         export GOROOT_BOOTSTRAP=$(go env GOROOT)
-        sh ./all.bash
+        ./make.bash --no-banner
+        ../bin/go version
+    - name: Test
+      shell: bash
+      if: ${{ inputs.test_build == 'true' }}
+      run: |
+        cd go/src
+        ./run.bash --no-rebuild
 
 branding:
   icon: crosshair

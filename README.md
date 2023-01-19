@@ -8,8 +8,10 @@ Usage with bash:
 ```
 
     - name: Build Go from source
-      uses: iwdgo/gotip-build@v0.0.1
+      uses: iwdgo/gotip-build@v0.1.0
       id: gotip
+      with:
+        test_build: true
 
 ```
 
