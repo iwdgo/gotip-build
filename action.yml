@@ -11,6 +11,22 @@ runs:
     - name: Clone master of go
       shell: bash
       run: git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go
+
+    - name: Apply patch files
+      shell: bash
+      run: |
+        if [ ! -f *.patch ]; then echo "No patch file found. Skipping."; exit 0; fi
+        export commitTitle=$(ls *.patch | head -1 | xargs -I {} basename {} .patch)
+        mv *.patch ./go/src/
+        cd go/src
+        git config user.email "${{ github.event.pusher.email }}"
+        git config user.name "${{ github.event.pusher.name }}"
+        git apply -v --ignore-space-change --ignore-whitespace --whitespace=fix *.patch
+        rm ./*.patch
+        git add -A
+        git commit -m $commitTitle
+        git show -1 --stat
+
     - name: Build
       shell: bash
       run: |

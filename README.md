@@ -3,7 +3,10 @@
 A relevant go version must be available.
 Currently, tip builds with [Go 1.17.13](https://github.com/golang/go/issues/44505)
 
-Usage with bash:
+Any patch files found using git format will be committed on tip.
+Expected file format is from command like [`git format-patch master`](https://git-scm.com/docs/git-format-patch)
+
+Usage with `bash`:
 
 ```
 
@@ -15,7 +18,7 @@ Usage with bash:
 
 ```
 
-On Windows, using powershell:
+On Windows, using `powershell`:
 
 ```
 
