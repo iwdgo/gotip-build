@@ -1,5 +1,10 @@
 name: 'Build Go from source on Windows'
 description: 'build and test go on tip using Windows'
+inputs:
+  test_build:
+    description: 'When set to true, all tests of build are executed'
+    required: false
+    default: 'true'
 
 runs:
   using: "composite"
@@ -9,13 +14,37 @@ runs:
       run: |
         git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go
 
+    - name: Apply first patch file found
+      shell: powershell
+      run: |
+        if (!(Test-Path *.patch -PathType leaf)) { echo "No patch file found. Skipping."; exit 0; }
+        $patchFile = $(Get-Item '*.patch').Name
+        $commitTitle=$(Get-Item '*.patch').Basename
+        move *.patch .\go\src\
+        cd go/src
+        git config user.email "${{ github.event.pusher.email }}"
+        git config user.name "${{ github.event.pusher.name }}"
+        git apply -v --ignore-space-change --ignore-whitespace --whitespace=fix $patchFile
+        del .\*.patch
+        git add -A
+        git commit -m $commitTitle
+        git show -1 --stat
+
     - name: Build
       shell: powershell
       run: |
         cd go/src
         $GOROOT_BOOTSTRAP = go env GOROOT
-        .\all.bat
+        .\make.bat --no-banner --no-local
         ..\bin\go.exe version
+
+    - name: Test
+      shell: powershell
+      if: ${{ inputs.test_build == 'true' }}
+      run: |
+        cd go/src
+        .\run.bat --no-rebuild  --no-local
+
 
 branding:
   icon: crosshair
