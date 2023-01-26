@@ -6,6 +6,8 @@ Currently, tip builds with [Go 1.17.13](https://github.com/golang/go/issues/4450
 Patch files found are committed on tip.
 File format is expected to come from command like [`git format-patch master`](https://git-scm.com/docs/git-format-patch)
 
+`GOROOT_BOOTSTRAP` is set to `go env GOROOT` when not set by `go_variables`.
+
 Usage with `bash`:
 
 ```
@@ -14,6 +16,7 @@ Usage with `bash`:
       uses: iwdgo/gotip-build@v0.2.1
       id: gotip
       with:
+        go_variables: GOROOT_FINAL=/ CGO_ENABLED=0
         test_build: true
 
 ```
