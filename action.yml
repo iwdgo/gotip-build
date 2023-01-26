@@ -1,6 +1,9 @@
 name: 'Build Go from source on Windows'
-description: 'build and test go on tip using Windows'
+description: 'Build and test Go from source code on Windows'
 inputs:
+  go_variables:
+    description: 'Variables and their values ready for export'
+    required: false
   test_build:
     description: 'When set to true, all tests of build are executed'
     required: false
@@ -34,7 +37,8 @@ runs:
       shell: powershell
       run: |
         cd go/src
-        $GOROOT_BOOTSTRAP = go env GOROOT
+        ${{ inputs.go_variables }}
+        If (!(Test-Path variable:GOROOT_BOOTSTRAP)) { $GOROOT_BOOTSTRAP = "$(go env GOROOT)" }
         .\make.bat --no-banner --no-local
         ..\bin\go.exe version
 
