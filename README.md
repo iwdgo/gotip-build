@@ -13,7 +13,7 @@ Usage with `bash`:
 ```
 
     - name: Build Go from source
-      uses: iwdgo/gotip-build@v0.2.1
+      uses: iwdgo/gotip-build@v0.3.0
       id: gotip
       with:
         go_variables: GOROOT_FINAL=/ CGO_ENABLED=0
@@ -29,6 +29,7 @@ On Windows, using `powershell`:
       uses: iwdgo/gotip-build@master-windows
       id: gotip
       with:
+        go_variables: $GOROOT_FINAL = "/"; $CGO_ENABLED = 0
         test_build: false
 
 ```
