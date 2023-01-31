@@ -17,21 +17,17 @@ runs:
       run: |
         git clone --depth=1 --branch master --single-branch --no-tags https://go.googlesource.com/go
 
-    - name: Apply first patch file found
+    - name: Apply patch files
       shell: powershell
       run: |
         if (!(Test-Path *.patch -PathType leaf)) { echo "No patch file found. Skipping."; exit 0; }
-        $patchFile = $(Get-Item '*.patch').Name
-        $commitTitle=$(Get-Item '*.patch').Basename
         move *.patch .\go\src\
         cd go/src
         git config user.email "${{ github.event.pusher.email }}"
         git config user.name "${{ github.event.pusher.name }}"
-        git apply -v --ignore-space-change --ignore-whitespace --whitespace=fix $patchFile
+        git am --ignore-space-change --ignore-whitespace --whitespace=fix $(dir *.patch).Name
+        git show --stat -n $(Get-ChildItem *.patch).Count
         del .\*.patch
-        git add -A
-        git commit -m $commitTitle
-        git show -1 --stat
 
     - name: Build
       shell: powershell
