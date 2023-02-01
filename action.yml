@@ -19,16 +19,13 @@ runs:
       shell: bash
       run: |
         if [ ! -f *.patch ]; then echo "No patch file found. Skipping."; exit 0; fi
-        export commitTitle=$(ls *.patch | head -1 | xargs -I {} basename {} .patch)
         mv *.patch ./go/src/
         cd go/src
         git config user.email "${{ github.event.pusher.email }}"
         git config user.name "${{ github.event.pusher.name }}"
-        git apply -v --ignore-space-change --ignore-whitespace --whitespace=fix *.patch
+        git am --ignore-space-change --ignore-whitespace --whitespace=fix *.patch
+        git show --stat -n $(ls -1 *.patch | wc -l)
         rm ./*.patch
-        git add -A
-        git commit -m $commitTitle
-        git show -1 --stat
 
     - name: Build
       shell: bash
