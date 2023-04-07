@@ -30,14 +30,23 @@ runs:
     - name: Build
       shell: bash
       run: |
-        cd go/src
         export ${{ inputs.go_variables }}
+        export goos=$(go env GOOS)
+        export goarch=$(go env GOARCH)
+        echo "goos=$goos" >> $GITHUB_ENV
+        echo "goarch=$goarch" >> $GITHUB_ENV
+        cd go/src
         if [ -z "$GOROOT_BOOTSTRAP" ]; then export GOROOT_BOOTSTRAP=$(go env GOROOT); fi
         ./make.bash --no-banner
         ../bin/go version
-    - name: Test
+        export crosscompile=true
+        if [ "$(go env GOOS)" == "$(go env GOHOSTOS)" -a "$(go env GOARCH)" == "$(go env GOHOSTARCH)" ]; then crosscompile=false; fi
+        echo $crosscompile
+        echo "crosscompile=$crosscompile" >> $GITHUB_ENV
+
+    - name: Test locally
       shell: bash
-      if: ${{ inputs.test_build == 'true' }}
+      if: ${{ inputs.test_build == 'true' && env.crosscompile == 'false' }}
       run: |
         cd go/src
         ./run.bash --no-rebuild
