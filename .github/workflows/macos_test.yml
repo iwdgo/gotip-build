@@ -1,7 +1,7 @@
 ##
-# Run mac os test of master branch
+# Run macos test of master branch
 ##
-name: mac os build and test without patch
+name: macos (AMD64) build and test without patch
 on:
   push:
     branches:

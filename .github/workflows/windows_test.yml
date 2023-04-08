@@ -1,7 +1,7 @@
 ##
 # Run windows test of master-windows branch
 ##
-name: windows build and test without patch
+name: windows (AMD64) build and test without patch
 on:
   push:
     branches:

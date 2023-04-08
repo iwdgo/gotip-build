@@ -1,7 +1,7 @@
 ##
 # Run linux test of master branch
 ##
-name: linux build and test without patch
+name: linux (AMD64) build and test without patch
 on:
   push:
     branches:
