@@ -1,18 +1,18 @@
 ##
-# Run windows test of master-windows branch
+# Run mac os test of master branch
 ##
-name: windows build and test without patch
+name: mac os build and test without patch
 on:
   push:
     branches:
-      - 'master-windows'
+      - 'master'
     paths:
       - 'action.yml'
 jobs:
 
   build:
     name: Build
-    runs-on: windows-latest
+    runs-on: macos-latest
     steps:
 
     - name: Set up Go
@@ -22,14 +22,11 @@ jobs:
       id: go
 
     - name: Build go from tip
-      uses: iwdgo/gotip-build@master-windows
+      uses: iwdgo/gotip-build@master
       id: gotip
-      with:
-        go_variables: $CGO_ENABLED = 0; $GOROOT_FINAL = "/"
-        test_build: false
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
       with:
         name: gotip-${{ runner.os }}-${{ runner.arch }}
-        path: .\go\bin
+        path: go/bin
