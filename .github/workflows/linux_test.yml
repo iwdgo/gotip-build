@@ -2,7 +2,12 @@
 # Run linux test of master branch
 ##
 name: linux build and test without patch
-on: [push]
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'action.yml'
 jobs:
 
   build:
