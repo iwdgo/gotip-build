@@ -41,7 +41,6 @@ runs:
         ../bin/go version
         export crosscompile=true
         if [ "$(go env GOOS)" == "$(go env GOHOSTOS)" -a "$(go env GOARCH)" == "$(go env GOHOSTARCH)" ]; then crosscompile=false; fi
-        echo $crosscompile
         echo "crosscompile=$crosscompile" >> $GITHUB_ENV
 
     - name: Test locally
