@@ -20,3 +20,5 @@ Usage:
         test_build: false
 
 ```
+
+Details on [wiki](https://github.com/iwdgo/gotip-build/wiki).
