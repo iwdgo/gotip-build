@@ -31,5 +31,5 @@ jobs:
       - name: Upload go executable
         uses: actions/upload-artifact@v3
         with:
-          name: gotip-${{ runner.os }}-${{ runner.arch }}
+          name: gotip-${{ env.GOOS }}-${{ env.GOARCH }}
           path: .\go\bin
