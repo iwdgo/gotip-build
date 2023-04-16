@@ -49,7 +49,7 @@ runs:
 
     - name: Test
       shell: powershell
-      if: ${{ inputs.test_build == 'true' }}
+      if: ${{ inputs.test_build == 'true' && env.crosscompile == 'false' }}
       run: |
         cd go/src
         .\run.bat --no-rebuild  --no-local
