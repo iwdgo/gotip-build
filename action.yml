@@ -32,11 +32,20 @@ runs:
     - name: Build
       shell: powershell
       run: |
-        cd go/src
         ${{ inputs.go_variables }}
+        $Env:GOOS = If ((Test-Path variable:GOOS)) { $GOOS } else { go env GOOS; $GOOS = go env GOOS }
+        go env -w GOOS=$GOOS
+        $Env:GOARCH = If ((Test-Path variable:GOARCH)) { $GOARCH } else { go env GOARCH; $GOARCH = go env GOARCH }
+        go env -w GOARCH=$GOARCH
+        echo "goos=$GOOS" >> $env:GITHUB_ENV
+        echo "goarch=$GOARCH" >> $env:GITHUB_ENV
+        cd go/src
         If (!(Test-Path variable:GOROOT_BOOTSTRAP)) { $GOROOT_BOOTSTRAP = "$(go env GOROOT)" }
         .\make.bat --no-banner --no-local
         ..\bin\go.exe version
+        $crosscompile = 'true'
+        if (($GOOS -eq $(go env GOHOSTOS)) -and ($GOARCH -eq $(go env GOHOSTARCH))) { $crosscompile = 'false' }
+        echo "crosscompile=$crosscompile" >> $env:GITHUB_ENV
 
     - name: Test
       shell: powershell
