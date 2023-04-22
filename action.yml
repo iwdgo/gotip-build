@@ -47,7 +47,7 @@ runs:
         if (($GOOS -eq $(go env GOHOSTOS)) -and ($GOARCH -eq $(go env GOHOSTARCH))) { $crosscompile = 'false' }
         echo "crosscompile=$crosscompile" >> $env:GITHUB_ENV
 
-    - name: Test
+    - name: Test locally
       shell: powershell
       if: ${{ inputs.test_build == 'true' && env.crosscompile == 'false' }}
       run: |
