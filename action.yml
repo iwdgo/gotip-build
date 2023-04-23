@@ -50,17 +50,13 @@ runs:
         cd go/src
         ./run.bash --no-rebuild
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
-      if: ${{ inputs.test_build == 'true' && env.crosscompile == 'true' }}
-      with:
-        platforms: ${{ env.goarch }}
-
     - name: Test using QEMU
       shell: bash
       if: ${{ inputs.test_build == 'true' && env.crosscompile == 'true' }}
       run: |
         export goarch=${{ env.goarch }}
+        # Install QEMU
+        docker run --rm --privileged tonistiigi/binfmt:latest --install ${{ env.goarch }}
         export imagename=$goarch/alpine # TODO Improve to handle processor naming
         export tooldir=${{ env.goos }}_${{ env.goarch }}
         docker run -d -t --platform $goarch -e GO_TEST_TIMEOUT_SCALE=4 -e GOPROXY=https://proxy.golang.org,direct -e GOSUMDB=sum.golang.org --name xcompile $imagename
