@@ -64,7 +64,13 @@ func main() {
 	log.Printf("%s", out)
 	log.Printf("Starting %s as 'xcompile' for %s", imagename, goarch)
 
-	image := exec.Command("sudo", "docker", "run", "-d", "-t",
+	timeout := os.Getenv("GO_TEST_TIMEOUT_SCALE")
+	if timeout == "" {
+		timeout = "4"
+	}
+	timeout = fmt.Sprintf("GO_TEST_TIMEOUT_SCALE=%s", timeout)
+
+	image := exec.Command("sh", "docker", "run", "-d", "-t",
 		"--platform", goarch,
 		// TODO Use go_variables when set
 		"-e", timeout,
