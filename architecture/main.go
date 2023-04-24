@@ -55,7 +55,7 @@ func main() {
 		qemuarch = goarch
 	}
 
-	qemu := exec.Command("sudo", "docker", "run", "--rm", "--privileged",
+	qemu := exec.Command("sh", "docker", "run", "--rm", "--privileged",
 		"tonistiigi/binfmt:latest", "--install", qemuarch)
 	out, err := qemu.Output()
 	if err != nil {
@@ -67,7 +67,7 @@ func main() {
 	image := exec.Command("sudo", "docker", "run", "-d", "-t",
 		"--platform", goarch,
 		// TODO Use go_variables when set
-		"-e", "GO_TEST_TIMEOUT_SCALE=4",
+		"-e", timeout,
 		"-e", "GOPROXY=https://proxy.golang.org,direct",
 		"-e", "GOSUMDB=sum.golang.org",
 		"--name", "xcompile",
@@ -78,7 +78,7 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("%s", out)
-	ps := exec.Command("sudo", "docker", "ps")
+	ps := exec.Command("sh", "docker", "ps")
 	out, err = ps.Output()
 	if err != nil {
 		log.Fatal(err)
