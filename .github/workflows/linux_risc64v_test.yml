@@ -1,0 +1,31 @@
+name: cross-compile to riscv64 on linux
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'action.yml'
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: 1.17.x
+      id: go
+
+    - name: Build go from tip
+      uses: iwdgo/gotip-build@master
+      id: gotip
+      with:
+        go_variables: CGO_ENABLED=0 GOARCH=riscv64 GOROOT_FINAL=/
+
+    - name: Upload go executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: gotip-${{ env.goos }}-${{ env.goarch }}
+        path: go/bin/${{ env.goos }}_${{ env.goarch }}/
