@@ -76,7 +76,7 @@ runs:
         docker exec xcompile mkdir -p /root/go/pkg/mod/
         docker exec xcompile mkdir -p /root/.config/go/env/
         docker exec xcompile mkdir -p /root/.cache/go-build/
-        # copy executables, include directory, source, tooling
+        # copy executables, include directory, source, tooling required for complete tests
         docker cp ./go/VERSION.cache xcompile:/tmp/go/
         docker cp ./go/bin/$tooldir/. xcompile:/tmp/go/bin/
         docker cp ./go/lib/time/zoneinfo.zip xcompile:/tmp/go/lib/time/zoneinfo.zip
