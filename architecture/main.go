@@ -23,7 +23,8 @@ var distro = []struct {
 	{"linux", "ppc64le", "", "ppc64le/alpine", ""},
 	{"linux", "riscv64", "", "riscv64/alpine:edge", ""},
 	{"linux", "arm64", "", "arm64v8/alpine", ""},
-	{"linux", "arm", "arm/v7", "arm32v7/alpine", ""}, // TODO Add v6
+	// {"linux", "arm", "arm/v6", "arm32v6/alpine", ""},
+	{"linux", "arm", "arm/v7", "arm32v7/alpine", ""},
 	{"linux", "386", "", "i386/alpine", ""},
 }
 
