@@ -30,15 +30,21 @@ var distro = []struct {
 
 const containername = "xcompile"
 
+func setDefault(s string, d string) (v string) {
+	c := os.Getenv(s)
+	if c == "" {
+		return d
+	}
+	return c
+}
+
+func setParam(s string, d string) (v string) {
+	return fmt.Sprintf("%s=%s", s, setDefault(s, d))
+}
+
 func main() {
-	goos := os.Getenv("GOOS")
-	if goos == "" {
-		goos = runtime.GOOS
-	}
-	goarch := os.Getenv("GOARCH")
-	if goarch == "" {
-		goarch = runtime.GOARCH
-	}
+	goos := setDefault("GOOS", runtime.GOOS)
+	goarch := setDefault("GOARCH", runtime.GOARCH)
 	if goos == runtime.GOOS && goarch == runtime.GOARCH {
 		fmt.Println("No cross-compiling requested")
 		return
@@ -59,28 +65,21 @@ func main() {
 		qemuarch = goarch
 	}
 
-	qemu := exec.Command("sh", "docker", "run", "--rm", "--privileged",
-		"tonistiigi/binfmt:latest", "--install", qemuarch)
+	qemu := exec.Command("sh", "docker", "run", "--rm", "--privileged", "tonistiigi/binfmt:latest",
+		"--install", qemuarch)
 	out, err := qemu.Output()
 	if err != nil {
 		log.Fatal(err)
 	}
 	log.Printf("%s", out)
-	log.Printf("Starting %s as 'xcompile' for %s", imagename, goarch)
-
-	timeout := os.Getenv("GO_TEST_TIMEOUT_SCALE")
-	if timeout == "" {
-		timeout = "4"
-	}
-	timeout = fmt.Sprintf("GO_TEST_TIMEOUT_SCALE=%s", timeout)
+	log.Printf("Starting %s as 'xcompile' for %s", containername, goarch)
 
 	image := exec.Command("sh", "docker", "run", "-d", "-t",
 		"--platform", goarch,
-		// TODO Use go_variables when set
-		"-e", timeout,
-		"-e", "GOPROXY=https://proxy.golang.org,direct",
-		"-e", "GOSUMDB=sum.golang.org",
-		"--name", "xcompile",
+		"-e", setParam("GO_TEST_TIMEOUT_SCALE", "4"),
+		"-e", setParam("GOPROXY", "https://proxy.golang.org,direct"),
+		"-e", setParam("GOSUMDB", "sum.golang.org"),
+		"--name", containername,
 		imagename)
 	log.Printf("%v", image)
 	out, err = image.Output()
