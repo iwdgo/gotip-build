@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
+	"os/exec"
 )
 
 func Example_native() {
@@ -34,9 +34,10 @@ func Example_supported() {
 		log.Fatalf("%v", err)
 	}
 	main()
-	fmt.Println(os.Getenv("qemuarch"))
-	fmt.Println(os.Getenv("imagename"))
-	// Output: linux/arm64: QEMU=arm64, Docker=arm64v8/alpine
-	// arm64
-	// arm64v8/alpine
+	ps := exec.Command("sh", "docker", "rm", containername)
+	out, err := ps.Output()
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Printf("%s", out)
 }

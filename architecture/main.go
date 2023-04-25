@@ -27,6 +27,8 @@ var distro = []struct {
 	{"linux", "386", "", "i386/alpine", ""},
 }
 
+const containername = "xcompile"
+
 func main() {
 	goos := os.Getenv("GOOS")
 	if goos == "" {
