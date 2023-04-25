@@ -1,7 +1,4 @@
-##
-# Run linux test of master branch
-##
-name: linux (AMD64) build and test without patch
+name: compile to amd64 on linux
 on:
   push:
     branches:

@@ -1,7 +1,4 @@
-##
-# Run macos test of master branch
-##
-name: macos (AMD64) build and test without patch
+name: compile to amd64 on macos
 on:
   push:
     branches:
