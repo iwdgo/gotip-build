@@ -48,6 +48,7 @@ func main() {
 		if d.o == goos && d.a == goarch {
 			qemuarch = d.q
 			imagename = d.d
+			break
 		}
 	}
 	if imagename == "" {
