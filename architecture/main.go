@@ -72,7 +72,7 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("%s", out)
-	log.Printf("Starting %s as 'xcompile' for %s", containername, goarch)
+	log.Printf("Starting %s as %s for %s", imagename, containername, goarch)
 
 	image := exec.Command("docker", "run", "-d", "-t",
 		"--platform", goarch,
@@ -87,11 +87,4 @@ func main() {
 		log.Fatal(err)
 	}
 	log.Printf("%s", out)
-	ps := exec.Command("sh", "docker", "ps")
-	out, err = ps.Output()
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Printf("%s", out)
-
 }
