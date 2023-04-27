@@ -27,6 +27,16 @@ runs:
         git show --stat -n $(ls -1 *.patch | wc -l)
         rm ./*.patch
 
+    - name: Complete Go set up
+      shell: bash
+      run: |
+        export ${{ inputs.go_variables }}
+        mkdir -p $(go env GOCACHE)
+        mkdir -p $(go env GOMODCACHE)
+        mkdir -p $(dirname $(go env GOENV))
+        mkdir -p $(go env GOPATH)/bin
+        echo $PATH
+
     - name: Build
       shell: bash
       run: |
