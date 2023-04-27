@@ -1,3 +1,3 @@
 module github.com/iwdgo/gotip-build/architecture
 
-go 1.20
+go 1.17
