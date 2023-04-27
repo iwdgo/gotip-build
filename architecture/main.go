@@ -65,7 +65,7 @@ func main() {
 		qemuarch = goarch
 	}
 
-	qemu := exec.Command("sh", "docker", "run", "--rm", "--privileged", "tonistiigi/binfmt:latest",
+	qemu := exec.Command("docker", "run", "--rm", "--privileged", "tonistiigi/binfmt:latest",
 		"--install", qemuarch)
 	out, err := qemu.Output()
 	if err != nil {
@@ -74,7 +74,7 @@ func main() {
 	log.Printf("%s", out)
 	log.Printf("Starting %s as 'xcompile' for %s", containername, goarch)
 
-	image := exec.Command("sh", "docker", "run", "-d", "-t",
+	image := exec.Command("docker", "run", "-d", "-t",
 		"--platform", goarch,
 		"-e", setParam("GO_TEST_TIMEOUT_SCALE", "4"),
 		"-e", setParam("GOPROXY", "https://proxy.golang.org,direct"),
