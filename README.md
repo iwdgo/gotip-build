@@ -1,3 +1,5 @@
+[![windows build and test without patch](https://github.com/iwdgo/gotip-build/actions/workflows/windows_test.yml/badge.svg?branch=master-windows)](https://github.com/iwdgo/gotip-build/actions/workflows/windows_test.yml)
+
 # Build Go from source on Windows
 
 A relevant go version must be available.
@@ -21,4 +23,4 @@ Usage:
 
 ```
 
-Details on [wiki](https://github.com/iwdgo/gotip-build/wiki).
+Details on [wiki](https://github.com/iwdgo/gotip-build/wiki/windows).

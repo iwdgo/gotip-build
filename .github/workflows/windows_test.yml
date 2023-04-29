@@ -1,7 +1,4 @@
-##
-# Run windows test of master-windows branch
-##
-name: windows build and test without patch
+name: compile to amd64 on windows
 on:
   push:
     branches:
