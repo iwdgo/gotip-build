@@ -54,6 +54,11 @@ runs:
         cd go/src
         .\run.bat --no-rebuild  --no-local
 
+    - name: Test cross-compile
+      shell: powershell
+      if: ${{ inputs.test_build == 'true' && env.crosscompile == 'true' }}
+      run: |
+        echo "Testing a cross-compiled version of Go is currently not implemented"
 
 branding:
   icon: crosshair
