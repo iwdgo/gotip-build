@@ -26,7 +26,7 @@ jobs:
       id: gotip
       with:
         go_variables: $CGO_ENABLED = 0; $GOROOT_FINAL = "/"
-        test_build: false
+        test_build: true
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
