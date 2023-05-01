@@ -17,7 +17,7 @@ Usage with `bash`:
 ```
 
     - name: Build Go from source
-      uses: iwdgo/gotip-build@v0.3.0
+      uses: iwdgo/gotip-build@v0.4.0
       id: gotip
       with:
         go_variables: GOROOT_FINAL=/ CGO_ENABLED=0
