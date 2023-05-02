@@ -1,4 +1,4 @@
-name: compile to amd64 on linux
+name: linux
 on:
   push:
     branches:
@@ -8,10 +8,13 @@ on:
 jobs:
 
   build:
+    strategy:
+      matrix:
+        go_arch: [amd64, arm64, riscv64, s390x, ppc64le]
+      fail-fast: false
     name: Build
     runs-on: ubuntu-latest
     steps:
-
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
@@ -22,11 +25,19 @@ jobs:
       uses: iwdgo/gotip-build@master
       id: gotip
       with:
-        go_variables: CGO_ENABLED=0 GOROOT_FINAL=/
+        go_variables: CGO_ENABLED=0 GOARCH=${{ matrix.go_arch }} GOROOT_FINAL=/
         test_build: true
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
+      if: ${{ env.crosscompile == 'false' }}
       with:
         name: gotip-${{ env.goos }}-${{ env.goarch }}
-        path: go/bin
+        path: go/bin/
+
+    - name: Upload go executable
+      uses: actions/upload-artifact@v3
+      if: ${{ env.crosscompile == 'true' }}
+      with:
+        name: gotip-${{ env.goos }}-${{ env.goarch }}
+        path: go/bin/${{ env.goos }}_${{ env.goarch }}
