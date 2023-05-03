@@ -94,9 +94,10 @@ runs:
         # copy executables, include directory
         docker cp ./go/VERSION.cache xcompile:/tmp/go/
         docker cp ./go/bin/$tooldir/. xcompile:/tmp/go/bin/
+        docker cp ./go/pkg/tool/$tooldir/. xcompile:/tmp/go/pkg/tool/$tooldir/
+        docker cp ./go/misc/. xcompile:/tmp/go/misc/
         docker cp ./go/lib/time/zoneinfo.zip xcompile:/tmp/go/lib/time/zoneinfo.zip
         docker cp ./go/pkg/include/. xcompile:/tmp/go/pkg/include/
-        docker cp ./go/pkg/tool/$tooldir/. xcompile:/tmp/go/pkg/tool/$tooldir/
         docker cp ./go/src/. xcompile:/tmp/go/src/
         docker cp ./go/test/. xcompile:/tmp/go/test/
         # Execute tests
