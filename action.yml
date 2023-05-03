@@ -78,7 +78,8 @@ runs:
         docker exec xcompile mkdir -p /tmp/go/pkg/include/
         docker exec xcompile mkdir /tmp/go/pkg/temp/
         docker exec xcompile mkdir -p /tmp/go/pkg/tool/$tooldir/
-        docker exec xcompile mkdir -p /tmp/go/test/chan/
+        docker exec xcompile mkdir -p /tmp/go/test/bench/
+        docker exec xcompile mkdir /tmp/go/test/chan/
         docker exec xcompile mkdir /tmp/go/test/dwarf/
         docker exec xcompile mkdir /tmp/go/test/fixedbugs/
         docker exec xcompile mkdir /tmp/go/test/interface/
