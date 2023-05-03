@@ -68,6 +68,8 @@ runs:
         export ${{ inputs.go_variables }}
         architecture
         export tooldir=${{ env.goos }}_${{ env.goarch }}
+        docker cp ./go/bin/$tooldir/. xcompile:/usr/local/bin/ # in $PATH
+        docker exec xcompile go env
         # create directories
         docker exec xcompile mkdir -p /tmp/go/src/cmd/go/
         docker exec xcompile mkdir /tmp/go/bin/
@@ -93,9 +95,9 @@ runs:
         docker cp ./go/pkg/include/. xcompile:/tmp/go/pkg/include/
         docker cp ./go/pkg/tool/$tooldir/. xcompile:/tmp/go/pkg/tool/$tooldir/
         docker cp ./go/src/. xcompile:/tmp/go/src/
-        # status go
-        docker exec -w /tmp/go xcompile ./bin/go version
-        docker exec -w /tmp/go xcompile ./bin/go env
+        docker cp ./go/test/. xcompile:/tmp/go/test/
+        # Execute tests
+        docker exec xcompile go version
         docker exec -w /tmp/go/src xcompile /bin/sh ./run.bash --no-rebuild
 
 branding:
