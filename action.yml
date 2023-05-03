@@ -86,9 +86,11 @@ runs:
         docker exec xcompile mkdir /tmp/go/test/ken/
         docker exec xcompile mkdir /tmp/go/test/syntax/
         docker exec xcompile mkdir /tmp/go/test/typeparam/
-        docker exec xcompile mkdir -p /root/go/pkg/mod/
-        docker exec xcompile mkdir -p /root/.config/go/env/
-        docker exec xcompile mkdir -p /root/.cache/go-build/
+        # Go variables
+        docker exec xcompile mkdir -p /root/.config/go/env/ # GOENV
+        docker exec xcompile mkdir -p /root/.cache/go-build/ # GOCACHE
+        docker exec xcompile mkdir -p /root/go/pkg/mod/ # GOMODCACHE
+        docker exec xcompile mkdir /tmp/go-build/
         # copy executables, include directory
         docker cp ./go/VERSION.cache xcompile:/tmp/go/
         docker cp ./go/bin/$tooldir/. xcompile:/tmp/go/bin/
