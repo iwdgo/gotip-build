@@ -1,4 +1,4 @@
-name: compile to amd64 on macos
+name: macos
 on:
   push:
     branches:

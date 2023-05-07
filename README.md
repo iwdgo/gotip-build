@@ -1,8 +1,8 @@
 # Build and test Go from source
 
-[![linux AMD64](https://github.com/iwdgo/gotip-build/actions/workflows/linux_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/linux_test.yml)  
-[![macos AMD64](https://github.com/iwdgo/gotip-build/actions/workflows/macos_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/macos_test.yml)  
-[![windows AMD64](https://github.com/iwdgo/gotip-build/actions/workflows/windows_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/windows_test.yml?branch=master-windows)  
+[![linux](https://github.com/iwdgo/gotip-build/actions/workflows/linux_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/linux_test.yml)  
+[![macos](https://github.com/iwdgo/gotip-build/actions/workflows/macos_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/macos_test.yml)  
+[![windows](https://github.com/iwdgo/gotip-build/actions/workflows/windows_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/windows_test.yml?branch=master-windows)  
 
 A relevant go version must be available.
 Currently, tip builds with [Go 1.17.13](https://github.com/golang/go/issues/44505)
