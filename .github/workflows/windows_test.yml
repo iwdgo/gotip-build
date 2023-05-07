@@ -1,4 +1,4 @@
-name: compile to amd64 on windows
+name: windows
 on:
   push:
     branches:
