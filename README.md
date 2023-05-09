@@ -1,6 +1,7 @@
 # Build and test Go from source
 
 [![linux](https://github.com/iwdgo/gotip-build/actions/workflows/linux_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/linux_test.yml)  
+[![arm](https://github.com/iwdgo/gotip-build/actions/workflows/linux_arm.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/linux_arm.yml)  
 [![macos](https://github.com/iwdgo/gotip-build/actions/workflows/macos_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/macos_test.yml)  
 [![windows](https://github.com/iwdgo/gotip-build/actions/workflows/windows_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/windows_test.yml?branch=master-windows)  
 
