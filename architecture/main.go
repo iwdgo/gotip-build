@@ -8,24 +8,27 @@ import (
 	"runtime"
 )
 
-// Empty values means that GOARCH can be used
+// distro contains the name of the image that docker must load after QEMU.
+// When qemu architecture is empty, the GOARCH value can be used.
+// When docker image name is empty, QEMU and docker must not be used.
 var distro = []struct {
 	o   string // GOOS
 	a   string // GOARCH
+	p   string // Processor variable, GOARM for now
 	q   string // QEMU architecture name
 	d   string // Docker image name
 	doc string // Documentation
 }{
-	{"windows", "amd64", "", "", "native on Github CI"},
-	{"linux", "amd64", "", "", "native on Github CI"},
-	{"macos", "amd64", "", "", "native on Github CI"},
-	{"linux", "s390x", "", "s390x/alpine", ""},
-	{"linux", "ppc64le", "", "ppc64le/alpine", ""},
-	{"linux", "riscv64", "", "riscv64/alpine:edge", ""},
-	{"linux", "arm64", "", "arm64v8/alpine", ""},
-	// {"linux", "arm", "arm/v6", "arm32v6/alpine", ""},
-	{"linux", "arm", "arm/v7", "arm32v7/alpine", ""},
-	{"linux", "386", "", "i386/alpine", ""},
+	{"windows", "amd64", "", "", "", "native on Github CI"},
+	{"linux", "amd64", "", "", "", "native on Github CI"},
+	{"macos", "amd64", "", "", "", "native on Github CI"},
+	{"linux", "s390x", "", "", "s390x/alpine", ""},
+	{"linux", "ppc64le", "", "", "ppc64le/alpine", ""},
+	{"linux", "riscv64", "", "", "riscv64/alpine:edge", ""},
+	{"linux", "arm64", "", "", "arm64v8/alpine", ""},
+	{"linux", "arm", "6", "", "arm32v6/alpine", "ARM v6"},
+	{"linux", "arm", "7", "", "arm32v7/alpine", "ARM v7"},
+	{"linux", "386", "", "", "i386/alpine", ""},
 }
 
 const containername = "xcompile"
@@ -49,16 +52,27 @@ func main() {
 		fmt.Println("No cross-compiling requested")
 		return
 	}
+	// processor is loaded from the relevant processor variable.
+	// When empty the default docker image is loaded
+	processor := ""
+	switch goarch {
+	case "arm":
+		processor = os.Getenv("GOARM")
+	}
 	qemuarch, imagename := "", ""
+	processorfound := false
 	for _, d := range distro {
 		if d.o == goos && d.a == goarch {
 			qemuarch = d.q
 			imagename = d.d
-			break
+			if d.p == processor {
+				processorfound = true
+				break
+			}
 		}
 	}
-	if imagename == "" {
-		fmt.Printf("Unsupported %s/%s\n", goos, goarch)
+	if imagename == "" || !processorfound {
+		log.Fatalf("No docker image available for %s/%s with processor %s\n", goos, goarch, processor)
 		return
 	}
 	if qemuarch == "" {
