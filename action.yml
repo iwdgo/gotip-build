@@ -45,13 +45,16 @@ runs:
         export goarch=$(go env GOARCH)
         echo "goos=$goos" >> $GITHUB_ENV
         echo "goarch=$goarch" >> $GITHUB_ENV
-        cd go/src
         if [ -z "$GOROOT_BOOTSTRAP" ]; then export GOROOT_BOOTSTRAP=$(go env GOROOT); fi
-        ./make.bash --no-banner
-        ../bin/go version
         export crosscompile=true
         if [ "$(go env GOOS)" == "$(go env GOHOSTOS)" -a "$(go env GOARCH)" == "$(go env GOHOSTARCH)" ]; then crosscompile=false; fi
+        if [ "$crosscompile" == "true" -a -z "$GOROOT_FINAL" ]; then export GOROOT_FINAL="/tmp/go"; fi
+        if [ "$crosscompile" == "false" -a -z "$GOROOT_FINAL" ]; then export GOROOT_FINAL="$(pwd)/go"; fi
         echo "crosscompile=$crosscompile" >> $GITHUB_ENV
+        echo "gorootfinal=$GOROOT_FINAL" >> $GITHUB_ENV
+        cd go/src
+        ./make.bash --no-banner
+        ../bin/go version
 
     - name: Test locally
       shell: bash
@@ -69,7 +72,6 @@ runs:
         architecture
         export tooldir=${{ env.goos }}_${{ env.goarch }}
         docker cp ./go/bin/$tooldir/. xcompile:/usr/local/bin/ # in $PATH
-        docker exec xcompile go env
         # create directories
         docker exec xcompile mkdir -p /tmp/go/src/cmd/go/
         docker exec xcompile mkdir /tmp/go/bin/
@@ -102,6 +104,7 @@ runs:
         docker cp ./go/test/. xcompile:/tmp/go/test/
         # Execute tests
         docker exec xcompile go version
+        docker exec xcompile go env
         docker exec -w /tmp/go/src xcompile /bin/sh ./run.bash --no-rebuild
 
 branding:
