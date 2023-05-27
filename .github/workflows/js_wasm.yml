@@ -1,0 +1,53 @@
+name: js/wasm
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'action.yml'
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+
+    - name: Build go from tip
+      uses: iwdgo/gotip-build@master
+      id: gotip
+      with:
+        go_variables: CGO_ENABLED=0 GOOS=js GOARCH=wasm
+        test_build: false
+
+    - name: Test
+      if: true
+      run: |
+        export GOROOT=$(pwd)/go
+        echo $GOROOT
+        go env -w GOROOT=$GOROOT # create go environment file
+        mv -f go/bin/${{ env.goos }}_${{ env.goarch }}/* go/bin/ # erase native build
+        export GO_TEST_TIMEOUT_SCALE=4
+        export GOPROXY="https://proxy.golang.org,direct"
+        export GOSUMDB="sum.golang.org"
+        cd ./go/src
+        ../misc/wasm/go_js_wasm_exec ../bin/go env
+        echo "Set up as in run.bash"
+        export GOENV=off
+        eval $(../misc/wasm/go_js_wasm_exec ../bin/go tool dist env)
+        unset CDPATH	# in case user has it set
+        export GOHOSTOS
+        export CC
+        export GOPATH=/nonexist-gopath
+        ../misc/wasm/go_js_wasm_exec ../bin/go tool
+        # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
+        # ../misc/wasm/go_js_wasm_exec ../bin/go test ./...
+
+    - name: Upload go executable
+      uses: actions/upload-artifact@v3
+      if: ${{ env.crosscompile == 'true' }}
+      with:
+        name: gotip-${{ env.goos }}-${{ env.arch }}
+        path: go/bin/
