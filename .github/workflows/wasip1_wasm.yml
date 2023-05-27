@@ -35,6 +35,7 @@ jobs:
         echo $PATH
         # wasmtime help
         # Go config
+        mv -f go/bin/${{ env.goos }}_${{ env.goarch }}/* go/bin/ # erase native build
         export GOWASIRUNTIME=wasmtime
         cd ./go/src
         ../misc/wasm/go_wasip1_wasm_exec ../bin/go env
