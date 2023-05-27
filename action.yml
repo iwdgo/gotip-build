@@ -60,6 +60,8 @@ runs:
       shell: bash
       if: ${{ inputs.test_build == 'true' && env.crosscompile == 'false' }}
       run: |
+        export ${{ inputs.go_variables }}
+        if [ -z "$GOTOOLCHAIN" ]; then export GOTOOLCHAIN="auto"; fi
         cd go/src
         ./run.bash --no-rebuild
 
