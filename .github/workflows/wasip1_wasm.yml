@@ -1,0 +1,60 @@
+name: wasip1/wasm
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'action.yml'
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+
+    - name: Build go from tip
+      uses: iwdgo/gotip-build@master
+      id: gotip
+      with:
+        go_variables: CGO_ENABLED=0 GOOS=wasip1 GOARCH=wasm
+        test_build: false
+
+    - name: Test using wasmruntime
+      run: |
+        export GOROOT=$(pwd)/go
+        echo $GOROOT
+        go env -w GOROOT=$GOROOT # create go environment file
+        curl https://wasmtime.dev/install.sh -sSf | bash
+        echo "--- wasm runtime install complete"
+        export WASMTIME_HOME="$HOME/.wasmtime"
+        echo $WASMTIME_HOME
+        export PATH="$WASMTIME_HOME/bin:$PATH"
+        echo $PATH
+        # wasmtime help
+        # Go config
+        export GOWASIRUNTIME=wasmtime
+        cd ./go/src
+        ../misc/wasm/go_wasip1_wasm_exec ../bin/go env
+        ../misc/wasm/go_wasip1_wasm_exec ../bin/go tool
+        # Set up as run.bash
+        export GO_TEST_TIMEOUT_SCALE=4
+        export GOPROXY="https://proxy.golang.org,direct"
+        export GOSUMDB="sum.golang.org"
+        export GOENV=off
+        eval $(../misc/wasm/go_wasip1_wasm_exec ../bin/go tool dist env)
+        unset CDPATH	# in case user has it set
+        export GOHOSTOS
+        export CC
+        export GOPATH=/nonexist-gopath
+        # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
+        # ../misc/wasm/go_wasip1_wasm_exec ../bin/go test ./...
+
+    - name: Upload go executable
+      uses: actions/upload-artifact@v3
+      if: ${{ env.crosscompile == 'true' }}
+      with:
+        name: gotip-${{ env.goos }}-${{ env.arch }}
+        path: go/bin/
