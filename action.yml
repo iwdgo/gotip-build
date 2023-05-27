@@ -91,7 +91,7 @@ runs:
         docker exec xcompile mkdir /tmp/go/test/syntax/
         docker exec xcompile mkdir /tmp/go/test/typeparam/
         # Go variables
-        docker exec xcompile mkdir -p /root/.config/go/env/ # GOENV
+        docker exec xcompile mkdir -p /root/.config/go/ # GOENV
         docker exec xcompile mkdir -p /root/.cache/go-build/ # GOCACHE
         docker exec xcompile mkdir -p /root/go/pkg/mod/ # GOMODCACHE
         docker exec xcompile mkdir /tmp/go-build/
