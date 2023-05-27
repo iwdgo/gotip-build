@@ -1,9 +1,17 @@
 # Build and test Go from source
 
+### Complete tests
+
 [![linux](https://github.com/iwdgo/gotip-build/actions/workflows/linux_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/linux_test.yml)  
 [![arm](https://github.com/iwdgo/gotip-build/actions/workflows/linux_arm.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/linux_arm.yml)  
 [![macos](https://github.com/iwdgo/gotip-build/actions/workflows/macos_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/macos_test.yml)  
 [![windows](https://github.com/iwdgo/gotip-build/actions/workflows/windows_test.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/windows_test.yml?branch=master-windows)  
+
+### Evaluation
+
+[![js_wasm](https://github.com/iwdgo/gotip-build/actions/workflows/js_wasm.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/js_wasm.yml)  
+[![wasip1_wasm](https://github.com/iwdgo/gotip-build/actions/workflows/wasip1_wasm.yml/badge.svg)](https://github.com/iwdgo/gotip-build/actions/workflows/wasip1_wasm.yml)  
+
 
 A relevant go version must be available.
 Currently, tip builds with [Go 1.17.13](https://github.com/golang/go/issues/44505)
