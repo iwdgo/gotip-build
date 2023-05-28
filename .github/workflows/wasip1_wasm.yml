@@ -5,6 +5,7 @@ on:
       - 'master'
     paths:
       - 'action.yml'
+      - '.github/workflows/wasip1_wasm.yml'
 jobs:
 
   build:
