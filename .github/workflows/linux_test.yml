@@ -5,12 +5,13 @@ on:
       - 'master'
     paths:
       - 'action.yml'
+      - '.github/workflows/linux_test.yml'
 jobs:
 
   build:
     strategy:
       matrix:
-        go_arch: [amd64, arm64, riscv64, s390x, ppc64le]
+        go_arch: [amd64, arm64, riscv64, s390x, ppc64le, 386]
       fail-fast: false
     name: Build
     runs-on: ubuntu-latest
