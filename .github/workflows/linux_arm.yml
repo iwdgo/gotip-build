@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         go_arch: [arm]
-        go_arm: [6, 7]
+        go_arm: [5, 6, 7]
       fail-fast: false
     name: Build
     runs-on: ubuntu-latest
