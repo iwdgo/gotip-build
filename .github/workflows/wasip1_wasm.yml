@@ -20,7 +20,7 @@ jobs:
       uses: iwdgo/gotip-build@master
       id: gotip
       with:
-        go_variables: CGO_ENABLED=0 GOOS=wasip1 GOARCH=wasm
+        go_variables: CGO_ENABLED=0 GOOS=wasip1 GOARCH=wasm GOROOT_FINAL=/home/runner/work/gotip-build/gotip-build/go
         test_build: false
 
     - name: Test using wasmruntime
