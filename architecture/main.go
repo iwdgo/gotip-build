@@ -66,7 +66,7 @@ func main() {
 	goos := setDefault("GOOS", runtime.GOOS)
 	goarch := setDefault("GOARCH", runtime.GOARCH)
 	if goos == runtime.GOOS && goarch == runtime.GOARCH {
-		fmt.Println("No cross-compiling requested")
+		log.Println("No cross-compiling requested")
 		return
 	}
 	// processor is loaded from the relevant processor variable.
