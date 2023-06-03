@@ -71,43 +71,43 @@ runs:
       run: |
         go install github.com/iwdgo/gotip-build/architecture@master
         export ${{ inputs.go_variables }}
-        architecture
+        architecture -imagebase=alpine
         export tooldir=${{ env.goos }}_${{ env.goarch }}
-        docker cp ./go/bin/$tooldir/. xcompile:/usr/local/bin/ # in $PATH
+        docker cp ./go/bin/$tooldir/. xalpine:/usr/local/bin/ # in $PATH
         # create directories
-        docker exec xcompile mkdir -p /tmp/go/src/cmd/go/
-        docker exec xcompile mkdir /tmp/go/bin/
-        docker exec xcompile mkdir -p /tmp/go/lib/time/
-        docker exec xcompile mkdir /tmp/go/misc/
-        docker exec xcompile mkdir -p /tmp/go/pkg/include/
-        docker exec xcompile mkdir /tmp/go/pkg/temp/
-        docker exec xcompile mkdir -p /tmp/go/pkg/tool/$tooldir/
-        docker exec xcompile mkdir -p /tmp/go/test/bench/
-        docker exec xcompile mkdir /tmp/go/test/chan/
-        docker exec xcompile mkdir /tmp/go/test/dwarf/
-        docker exec xcompile mkdir /tmp/go/test/fixedbugs/
-        docker exec xcompile mkdir /tmp/go/test/interface/
-        docker exec xcompile mkdir /tmp/go/test/ken/
-        docker exec xcompile mkdir /tmp/go/test/syntax/
-        docker exec xcompile mkdir /tmp/go/test/typeparam/
+        docker exec xalpine mkdir -p /tmp/go/src/cmd/go/
+        docker exec xalpine mkdir /tmp/go/bin/
+        docker exec xalpine mkdir -p /tmp/go/lib/time/
+        docker exec xalpine mkdir /tmp/go/misc/
+        docker exec xalpine mkdir -p /tmp/go/pkg/include/
+        docker exec xalpine mkdir /tmp/go/pkg/temp/
+        docker exec xalpine mkdir -p /tmp/go/pkg/tool/$tooldir/
+        docker exec xalpine mkdir -p /tmp/go/test/bench/
+        docker exec xalpine mkdir /tmp/go/test/chan/
+        docker exec xalpine mkdir /tmp/go/test/dwarf/
+        docker exec xalpine mkdir /tmp/go/test/fixedbugs/
+        docker exec xalpine mkdir /tmp/go/test/interface/
+        docker exec xalpine mkdir /tmp/go/test/ken/
+        docker exec xalpine mkdir /tmp/go/test/syntax/
+        docker exec xalpine mkdir /tmp/go/test/typeparam/
         # Go variables
-        docker exec xcompile mkdir -p /root/.config/go/ # GOENV
-        docker exec xcompile mkdir -p /root/.cache/go-build/ # GOCACHE
-        docker exec xcompile mkdir -p /root/go/pkg/mod/ # GOMODCACHE
-        docker exec xcompile mkdir /tmp/go-build/
+        docker exec xalpine mkdir -p /root/.config/go/ # GOENV
+        docker exec xalpine mkdir -p /root/.cache/go-build/ # GOCACHE
+        docker exec xalpine mkdir -p /root/go/pkg/mod/ # GOMODCACHE
+        docker exec xalpine mkdir /tmp/go-build/
         # copy executables, include directory
-        docker cp ./go/VERSION.cache xcompile:/tmp/go/
-        docker cp ./go/bin/$tooldir/. xcompile:/tmp/go/bin/
-        docker cp ./go/pkg/tool/$tooldir/. xcompile:/tmp/go/pkg/tool/$tooldir/
-        docker cp ./go/misc/. xcompile:/tmp/go/misc/
-        docker cp ./go/lib/time/zoneinfo.zip xcompile:/tmp/go/lib/time/zoneinfo.zip
-        docker cp ./go/pkg/include/. xcompile:/tmp/go/pkg/include/
-        docker cp ./go/src/. xcompile:/tmp/go/src/
-        docker cp ./go/test/. xcompile:/tmp/go/test/
+        docker cp ./go/VERSION.cache xalpine:/tmp/go/
+        docker cp ./go/bin/$tooldir/. xalpine:/tmp/go/bin/
+        docker cp ./go/pkg/tool/$tooldir/. xalpine:/tmp/go/pkg/tool/$tooldir/
+        docker cp ./go/misc/. xalpine:/tmp/go/misc/
+        docker cp ./go/lib/time/zoneinfo.zip xalpine:/tmp/go/lib/time/zoneinfo.zip
+        docker cp ./go/pkg/include/. xalpine:/tmp/go/pkg/include/
+        docker cp ./go/src/. xalpine:/tmp/go/src/
+        docker cp ./go/test/. xalpine:/tmp/go/test/
         # Execute tests
-        docker exec xcompile go version
-        docker exec xcompile go env
-        docker exec -w /tmp/go/src xcompile /bin/sh ./run.bash --no-rebuild
+        docker exec xalpine go version
+        docker exec xalpine go env
+        docker exec -w /tmp/go/src xalpine /bin/sh ./run.bash --no-rebuild
 
 branding:
   icon: crosshair

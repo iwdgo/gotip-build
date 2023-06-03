@@ -34,7 +34,7 @@ func Example_supported() {
 		log.Fatalf("%v", err)
 	}
 	main()
-	ps := exec.Command("sh", "docker", "rm", containername)
+	ps := exec.Command("sh", "docker", "rm", "xalpine")
 	out, err := ps.Output()
 	if err != nil {
 		log.Fatal(err)

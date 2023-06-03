@@ -16,24 +16,23 @@ var distro = []struct {
 	o   string // GOOS
 	a   string // GOARCH
 	p   string // Processor variable, GOARM for now
-	q   string // QEMU architecture name
-	d   string // Docker image name
+	q   string // QEMU architecture name. Defaults to GOARCH.
+	tag string // Docker default tag
+	d   string // Full docker image name overriding all values
 	doc string // Documentation
 }{
-	{"windows", "amd64", "", "", "", "native on Github CI"},
-	{"linux", "amd64", "", "", "", "native on Github CI"},
-	{"macos", "amd64", "", "", "", "native on Github CI"},
-	{"linux", "s390x", "", "", "s390x/alpine", ""},
-	{"linux", "ppc64le", "", "", "ppc64le/alpine", ""},
-	{"linux", "riscv64", "", "", "riscv64/alpine:edge", ""},
-	{"linux", "arm64", "", "", "arm64v8/alpine", ""},
-	{"linux", "arm", "5", "", "arm32v5/golang", "ARM v5"},
-	{"linux", "arm", "6", "", "arm32v6/alpine", "ARM v6"},
-	{"linux", "arm", "7", "", "arm32v7/alpine", "ARM v7"},
-	{"linux", "386", "", "", "i386/alpine", ""},
+	{"windows", "amd64", "", "", "", "", "native on Github CI"},
+	{"linux", "amd64", "", "", "", "", "native on Github CI"},
+	{"macos", "amd64", "", "", "", "", "native on Github CI"},
+	{"linux", "s390x", "", "", "", "", ""},
+	{"linux", "ppc64le", "", "", "", "", ""},
+	{"linux", "riscv64", "", "", "edge", "", ""},
+	{"linux", "arm", "5", "", "", "", "arm v5"},
+	{"linux", "arm", "6", "", "", "", "arm v6"},
+	{"linux", "arm", "7", "", "", "", "arm v7"},
+	{"linux", "arm64", "", "", "", "", "arm v8"},
+	{"linux", "386", "", "", "", "i386/golang", ""},
 }
-
-const containername = "xcompile"
 
 func setDefault(s string, d string) (v string) {
 	c := os.Getenv(s)
@@ -45,6 +44,16 @@ func setDefault(s string, d string) (v string) {
 
 func setParam(s string, d string) (v string) {
 	return fmt.Sprintf("%s=%s", s, setDefault(s, d))
+}
+
+// Build docker arm name like arm[32|64]v[5|6|7|8]
+func buildArm(s string) (v string) {
+	switch s {
+	case "8":
+		return "arm64v8"
+	default:
+		return fmt.Sprintf("arm32v%s", s)
+	}
 }
 
 // If distro does not contain any line, a Docker image named "GOARCH/golang" will be loaded.
@@ -67,21 +76,34 @@ func main() {
 	case "arm":
 		processor = os.Getenv("GOARM")
 	}
-	qemuarch, imagename := "", ""
+	qemuarch, imagename, imagetag := "", "", ""
 	processorfound := false
 	for _, d := range distro {
 		if d.o == goos && d.a == goarch {
 			qemuarch = d.q
 			imagename = d.d
+			imagetag = d.tag
 			if d.p == processor {
 				processorfound = true
 				break
 			}
 		}
 	}
-	if imagename == "" || !processorfound {
-		log.Fatalf("No docker image available for %s/%s with processor %s\n", goos, goarch, processor)
+	if !processorfound {
+		log.Fatalf("No known docker image for %s/%s with processor %s\n", goos, goarch, processor)
 		return
+	}
+	if imagename == "" {
+		s := *imagebase
+		dockerarch := goarch
+		switch dockerarch {
+		case "arm":
+			buildArm(processor)
+		}
+		imagename = fmt.Sprintf("%s/%s", dockerarch, s)
+		if imagetag != "" {
+			imagename = fmt.Sprintf("%s:%s", imagename, imagetag)
+		}
 	}
 	if qemuarch == "" {
 		qemuarch = goarch
