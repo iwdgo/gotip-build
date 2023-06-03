@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"os"
@@ -46,7 +47,13 @@ func setParam(s string, d string) (v string) {
 	return fmt.Sprintf("%s=%s", s, setDefault(s, d))
 }
 
+// If distro does not contain any line, a Docker image named "GOARCH/golang" will be loaded.
+// The name of the image can be overridden using flag "imagebase".
 func main() {
+	// TODO "xcompile" will become "xalpine" on master branch
+	imagebase := flag.String("imagebase", "golang", "name of image base")
+	flag.Parse()
+	containername := "x" + *imagebase
 	goos := setDefault("GOOS", runtime.GOOS)
 	goarch := setDefault("GOARCH", runtime.GOARCH)
 	if goos == runtime.GOOS && goarch == runtime.GOARCH {
