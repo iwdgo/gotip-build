@@ -30,7 +30,7 @@ var distro = []struct {
 	{"linux", "arm", "5", "", "", "", "arm v5"},
 	{"linux", "arm", "6", "", "", "", "arm v6"},
 	{"linux", "arm", "7", "", "", "", "arm v7"},
-	{"linux", "arm64", "", "", "", "", "arm v8"},
+	{"linux", "arm64", "8", "", "", "", "arm v8"},
 	{"linux", "386", "", "", "", "i386/golang", ""},
 }
 
@@ -97,7 +97,7 @@ func main() {
 		s := *imagebase
 		dockerarch := goarch
 		switch dockerarch {
-		case "arm":
+		case "arm", "arm64":
 			buildArm(processor)
 		}
 		imagename = fmt.Sprintf("%s/%s", dockerarch, s)
