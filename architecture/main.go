@@ -98,7 +98,7 @@ func main() {
 		dockerarch := goarch
 		switch dockerarch {
 		case "arm", "arm64":
-			buildArm(processor)
+			dockerarch = buildArm(processor)
 		}
 		imagename = fmt.Sprintf("%s/%s", dockerarch, s)
 		if imagetag != "" {
