@@ -73,6 +73,8 @@ func main() {
 	// When empty the default docker image is loaded
 	processor := ""
 	switch goarch {
+	case "arm64":
+		processor = "8"
 	case "arm":
 		processor = os.Getenv("GOARM")
 	}
