@@ -28,7 +28,7 @@ var distro = []struct {
 	{"linux", "ppc64le", "", "", "", "", ""},
 	{"linux", "riscv64", "", "", "edge", "", ""},
 	{"linux", "arm", "5", "", "", "", "arm v5"},
-	{"linux", "arm", "6", "", "", "alpine", "arm v6"},
+	{"linux", "arm", "6", "", "alpine", "", "arm v6"},
 	{"linux", "arm", "7", "", "", "", "arm v7"},
 	{"linux", "arm64", "8", "", "", "", "arm v8"},
 	{"linux", "386", "", "", "", "i386/golang", ""},
