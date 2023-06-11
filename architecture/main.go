@@ -31,7 +31,7 @@ var distro = []struct {
 	{"linux", "arm", "6", "", "alpine", "", "arm v6"},
 	{"linux", "arm", "7", "", "", "", "arm v7"},
 	{"linux", "arm64", "8", "", "", "", "arm v8"},
-	{"linux", "386", "", "", "", "i386/golang", ""},
+	{"linux", "386", "", "", "", "", ""},
 }
 
 func setDefault(s string, d string) (v string) {
