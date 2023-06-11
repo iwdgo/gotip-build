@@ -1,7 +1,10 @@
 # Build and test Go from source
 
-A relevant go version must be available.
-Currently, tip builds with [Go 1.17.13](https://github.com/golang/go/issues/44505)
+Go must be available to build the language from source.
+In go1.21 cycle, tip built with [Go 1.17.13](https://github.com/golang/go/issues/44505).
+[Forward compatibility](https://github.com/golang/go/issues/57001) justifies to use Go 1.19 with the introduction of `GOTOOLCHAIN`.
+
+Besides the [install](https://go.dev/doc/install/source) documentation, more details on [wiki](https://github.com/iwdgo/gotip-build/wiki).
 
 Patch files found in directory are applied on tip.
 Expected file format is from command like [`git format-patch master`](https://git-scm.com/docs/git-format-patch)
@@ -33,5 +36,3 @@ On Windows, using `powershell` is identical except for the version tag which is 
         test_build: false
 
 ```
-
-Details on [wiki](https://github.com/iwdgo/gotip-build/wiki).
