@@ -1,4 +1,4 @@
-name: arm v6/v7
+name: arm v5/6/7
 on:
   push:
     branches:
