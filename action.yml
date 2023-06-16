@@ -107,7 +107,7 @@ runs:
         # Execute tests
         docker exec xalpine go version
         docker exec xalpine go env
-        docker exec -w /tmp/go/src xalpine ./run.bash --no-rebuild
+        docker exec -w /tmp/go/src xalpine /bin/sh ./run.bash --no-rebuild
 
 branding:
   icon: crosshair
