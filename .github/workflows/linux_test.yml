@@ -11,7 +11,7 @@ jobs:
   build:
     strategy:
       matrix:
-        go_arch: [amd64, arm64, riscv64, s390x, ppc64le, 386]
+        go_arch: [amd64, arm64, mips64le, ppc64le, riscv64, s390x, 386]
       fail-fast: false
     name: Build
     runs-on: ubuntu-latest

@@ -61,7 +61,6 @@ func buildArm(s string) (v string) {
 // If distro does not contain any line, a Docker image named "GOARCH/golang" will be loaded.
 // The name of the image can be overridden using flag "imagebase".
 func main() {
-	// TODO "xcompile" will become "xalpine" on master branch
 	imagebase := flag.String("imagebase", "golang", "name of image base")
 	flag.Parse()
 	containername := "x" + *imagebase
