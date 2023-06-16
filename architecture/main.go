@@ -28,8 +28,9 @@ var distro = []struct {
 	{"linux", "mips64le", "", "", "", "mips64le/debian", ""},
 	{"linux", "ppc64le", "", "", "", "", ""},
 	{"linux", "riscv64", "", "", "edge", "", ""},
-	{"linux", "arm", "5", "", "", "", "arm v5"},
-	{"linux", "arm", "6", "", "alpine", "", "arm v6"},
+	{"linux", "arm", "5", "", "", "arm32v5/golang", "arm v5"},
+	// TODO arm32v6/golang:alpine
+	{"linux", "arm", "6", "", "", "", "arm v6"},
 	{"linux", "arm", "7", "", "", "", "arm v7"},
 	{"linux", "arm64", "8", "", "", "", "arm v8"},
 	{"linux", "386", "", "", "", "", ""},
