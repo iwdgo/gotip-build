@@ -25,6 +25,7 @@ var distro = []struct {
 	{"linux", "amd64", "", "", "", "", "native on Github CI"},
 	{"macos", "amd64", "", "", "", "", "native on Github CI"},
 	{"linux", "s390x", "", "", "", "", ""},
+	{"linux", "mips64le", "", "", "", "", "mips64le/debian"},
 	{"linux", "ppc64le", "", "", "", "", ""},
 	{"linux", "riscv64", "", "", "edge", "", ""},
 	{"linux", "arm", "5", "", "", "", "arm v5"},
@@ -113,6 +114,12 @@ func main() {
 
 	qemu := exec.Command("docker", "run", "--rm", "--privileged", "tonistiigi/binfmt:latest",
 		"--install", qemuarch)
+	switch qemuarch {
+	case "mips64le":
+		// TODO Only load the requested architecture
+		qemu = exec.Command("docker", "run", "--rm", "--privileged", "multiarch/qemu-user-static",
+			"--reset", "-p", "yes")
+	}
 	out, err := qemu.Output()
 	if err != nil {
 		log.Fatal(err)
