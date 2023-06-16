@@ -25,7 +25,7 @@ var distro = []struct {
 	{"linux", "amd64", "", "", "", "", "native on Github CI"},
 	{"macos", "amd64", "", "", "", "", "native on Github CI"},
 	{"linux", "s390x", "", "", "", "", ""},
-	{"linux", "mips64le", "", "", "", "", "mips64le/debian"},
+	{"linux", "mips64le", "", "", "", "mips64le/debian", ""},
 	{"linux", "ppc64le", "", "", "", "", ""},
 	{"linux", "riscv64", "", "", "edge", "", ""},
 	{"linux", "arm", "5", "", "", "", "arm v5"},
