@@ -16,8 +16,8 @@ var distro = []struct {
 	o   string // GOOS
 	a   string // GOARCH
 	p   string // Processor variable, GOARM for now
-	q   string // QEMU architecture name. Defaults to GOARCH.
-	tag string // Docker default tag
+	q   string // Docker architecture name. Defaults to GOARCH.
+	tag string // Docker default tag. Docker defaults to latest.
 	d   string // Full docker image name overriding all values
 	doc string // Documentation
 }{
@@ -33,7 +33,7 @@ var distro = []struct {
 	{"linux", "arm", "6", "", "", "", "arm v6"},
 	{"linux", "arm", "7", "", "", "", "arm v7"},
 	{"linux", "arm64", "8", "", "", "", "arm v8"},
-	{"linux", "386", "", "", "", "", ""},
+	{"linux", "386", "", "i386", "", "", ""},
 }
 
 func setDefault(s string, d string) (v string) {
@@ -79,11 +79,11 @@ func main() {
 	case "arm":
 		processor = os.Getenv("GOARM")
 	}
-	qemuarch, imagename, imagetag := "", "", ""
+	qemuarch, dockerarch, imagename, imagetag := goarch, "", "", ""
 	processorfound := false
 	for _, d := range distro {
 		if d.o == goos && d.a == goarch {
-			qemuarch = d.q
+			dockerarch = d.q
 			imagename = d.d
 			imagetag = d.tag
 			if d.p == processor {
@@ -98,8 +98,9 @@ func main() {
 	}
 	if imagename == "" {
 		s := *imagebase
-		dockerarch := goarch
 		switch dockerarch {
+		case "":
+			dockerarch = goarch
 		case "arm", "arm64":
 			dockerarch = buildArm(processor)
 		}
@@ -107,9 +108,6 @@ func main() {
 		if imagetag != "" {
 			imagename = fmt.Sprintf("%s:%s", imagename, imagetag)
 		}
-	}
-	if qemuarch == "" {
-		qemuarch = goarch
 	}
 
 	qemu := exec.Command("docker", "run", "--rm", "--privileged", "tonistiigi/binfmt:latest",
