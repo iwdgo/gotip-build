@@ -109,7 +109,7 @@ runs:
         docker exec xalpine go env
         # Bash is the default shell when available
         export $(cat $GITHUB_ENV | grep usebash)
-        runbash=run.bash
+        runbash='./run.bash'
         if [ "$usebash" == "false" ]; then runbash='/bin/sh ./run.bash'; fi
         docker exec -w /tmp/go/src xalpine $runbash --no-rebuild
 
