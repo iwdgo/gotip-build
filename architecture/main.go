@@ -1,3 +1,7 @@
+// package architecture loads two docker images. The first one to provide cross-compile
+// support for the current GOOS/GOARCH pair. The second image is an operating system
+// which defaults to the `golang` image.
+// FLag imagename allows to change the default to any other like `alpine`.
 package main
 
 import (
@@ -37,6 +41,7 @@ var distro = []struct {
 	{"linux", "386", "", "i386", "", "", ""},
 }
 
+// setDefault returns the variable value read using os.Getenv and d when the value read is empty.
 func setDefault(s string, d string) (v string) {
 	c := os.Getenv(s)
 	if c == "" {
@@ -45,6 +50,7 @@ func setDefault(s string, d string) (v string) {
 	return c
 }
 
+// setParam return a string in the form KEY=VALUE where VALUE is set to the default when none is read.
 func setParam(s string, d string) (v string) {
 	return fmt.Sprintf("%s=%s", s, setDefault(s, d))
 }
