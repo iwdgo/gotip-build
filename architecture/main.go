@@ -33,7 +33,7 @@ var distro = []struct {
 	// TODO arm32v6/golang:alpine
 	{"linux", "arm", "6", "", "", "", "arm v6"},
 	{"linux", "arm", "7", "", "", "", "arm v7"},
-	{"linux", "arm64", "8", "", "", "", "arm v8"},
+	{"linux", "arm64", "", "", "", "", "arm v8"},
 	{"linux", "386", "", "i386", "", "", ""},
 }
 
