@@ -117,7 +117,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		_, err = f.WriteString(fmt.Sprintf("usebash=%v\n", strings.Contains(imagename, "alpine")))
+		_, err = f.WriteString(fmt.Sprintf("usebash=%v\n", !strings.Contains(imagename, "alpine")))
 		if err != nil {
 			log.Fatal(err)
 		}
