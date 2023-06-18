@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"strings"
 )
 
 // distro contains the name of the image that docker must load after QEMU.
@@ -108,6 +109,21 @@ func main() {
 		if imagetag != "" {
 			imagename = fmt.Sprintf("%s:%s", imagename, imagetag)
 		}
+	}
+	// Set usebash to true when not an alpine container
+	v, b := os.LookupEnv("GITHUB_ENV")
+	if b {
+		f, err := os.OpenFile(v, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+		if err != nil {
+			log.Fatal(err)
+		}
+		_, err = f.WriteString(fmt.Sprintf("usebash=%v\n", strings.Contains(imagename, "alpine")))
+		if err != nil {
+			log.Fatal(err)
+		}
+		_ = f.Close()
+	} else {
+		log.Print("GITHUB_ENV is not set. bash is used by default.")
 	}
 
 	qemu := exec.Command("docker", "run", "--rm", "--privileged", "tonistiigi/binfmt:latest",
