@@ -104,7 +104,7 @@ runs:
         docker cp ./go/pkg/include/. xalpine:/tmp/go/pkg/include/
         docker cp ./go/src/. xalpine:/tmp/go/src/
         docker cp ./go/test/. xalpine:/tmp/go/test/
-        # Execute tests
+        # Smoke tests
         docker exec xalpine go version
         docker exec xalpine go env
         # Bash is the default shell when available
