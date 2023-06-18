@@ -80,11 +80,13 @@ func main() {
 	case "arm":
 		processor = os.Getenv("GOARM")
 	}
-	qemuarch, dockerarch, imagename, imagetag := goarch, "", "", ""
+	qemuarch, dockerarch, imagename, imagetag := goarch, goarch, "", ""
 	processorfound := false
 	for _, d := range distro {
 		if d.o == goos && d.a == goarch {
-			dockerarch = d.q
+			if d.q != "" {
+				dockerarch = d.q
+			}
 			imagename = d.d
 			imagetag = d.tag
 			if d.p == processor {
@@ -100,8 +102,6 @@ func main() {
 	if imagename == "" {
 		s := *imagebase
 		switch dockerarch {
-		case "":
-			dockerarch = goarch
 		case "arm", "arm64":
 			dockerarch = buildArm(processor)
 		}
