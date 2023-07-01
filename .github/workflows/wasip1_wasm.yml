@@ -49,7 +49,7 @@ jobs:
         export CC
         export GOPATH=/nonexist-gopath
         # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
-        # ../misc/wasm/go_wasip1_wasm_exec ../bin/go test ./...
+        ../misc/wasm/go_wasip1_wasm_exec ../bin/go test ./...
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
