@@ -54,18 +54,18 @@ jobs:
         # ../misc/wasm/go_wasip1_wasm_exec ../bin/go test ./...
 
     - name: Test using wazero
-      if: false
       run: |
         curl https://wazero.io/install.sh | sh
         ls -l ./bin
         export PATH="$(pwd)/bin:$PATH"
         echo $PATH
-        echo "wazero" $(wazero version)
+        wazero version
+        wazero -h
         # Go config
         export GOWASIRUNTIME=wazero
         cd ./go/src
-        ../misc/wasm/go_wasip1_wasm_exec ../bin/go env
-        ../misc/wasm/go_wasip1_wasm_exec ../bin/go tool
+        wazero run --cachedir=/home/runner/.cache/go-build -interpreter -mount=/:/ ../bin/go env
+        wazero run --cachedir=/home/runner/.cache/go-build -interpreter -mount=/:/ ../bin/go tool
         # Set up as run.bash
         export GO_TEST_TIMEOUT_SCALE=4
         export GOPROXY="https://proxy.golang.org,direct"
@@ -76,7 +76,8 @@ jobs:
         export GOHOSTOS
         export CC
         export GOPATH=/nonexist-gopath
-        #../misc/wasm/go_wasip1_wasm_exec ../bin/go test ./...
+        # pattern ./...: directory prefix / does not contain main module or its selected dependencies
+        # wazero run --cachedir=/home/runner/.cache/go-build -interpreter -mount=/:/ ../bin/go test ./...
 
     - name: Test using wasmer
       if: false
@@ -106,7 +107,6 @@ jobs:
 
     - name: Test using wasmedge
       shell: bash
-      if: true
       run: |
         curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash
         source $HOME/.bashrc
