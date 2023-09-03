@@ -5,6 +5,7 @@ on:
       - 'master-windows'
     paths:
       - 'action.yml'
+      - 'github/workflows/windows_test.yml'
 jobs:
 
   build:
