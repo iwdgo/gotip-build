@@ -28,7 +28,7 @@ jobs:
       uses: iwdgo/gotip-build@master
       id: gotip
       with:
-        go_variables: CGO_ENABLED=0 GOARCH=${{ matrix.go_arch }} GOARM=${{ matrix.go_arm}}
+        go_variables: GOARCH=${{ matrix.go_arch }} GOARM=${{ matrix.go_arm}}
         test_build: true
 
     - name: Upload go executable
