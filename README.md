@@ -1,8 +1,7 @@
 # Build and test Go from source
 
 Go must be available to build the language from source.
-In go1.21 cycle, tip built with [Go 1.17.13](https://github.com/golang/go/issues/44505).
-[Forward compatibility](https://github.com/golang/go/issues/57001) justifies to use Go 1.19 with the introduction of `GOTOOLCHAIN`.
+The [toolchain](https://go.dev/doc/toolchain) for testing is go1.20 following this [comment](https://github.com/golang/go/issues/57001#issuecomment-1332663570).
 
 Besides the [install](https://go.dev/doc/install/source) documentation, more details on [wiki](https://github.com/iwdgo/gotip-build/wiki).
 
@@ -16,7 +15,7 @@ Usage with `bash`:
 ```
 
     - name: Build Go from source
-      uses: iwdgo/gotip-build@v0.4.0
+      uses: iwdgo/gotip-build@v0.5.0
       id: gotip
       with:
         go_variables: GOROOT_FINAL=/ CGO_ENABLED=0
