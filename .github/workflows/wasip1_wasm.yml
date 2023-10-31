@@ -96,11 +96,13 @@ jobs:
         # Set up as run.bash
         # export GO_TEST_TIMEOUT_SCALE=4
         # export GOENV=off
-        eval $($HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go tool dist env)
+        # eval $($HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go run cmd/dist env)
         # unset CDPATH	# in case user has it set
         # export CC
         # export GOPATH=/nonexist-gopath
         # $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go test ./...
+        cd ..
+        $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ./bin/go
 
     - name: Test using wasmer
       run: |
