@@ -88,21 +88,22 @@ jobs:
         wasmer config
         # Go config
         ls /home/runner/work/gotip-build/gotip-build/go
-        cd ./go/src
+        cd ./go
         export GOROOT=/home/runner/work/gotip-build/gotip-build/go
-        ../misc/wasm/go_wasip1_wasm_exec ../bin/go env
-        ../misc/wasm/go_wasip1_wasm_exec ../bin/go tool
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go tool
         # Set up as run.bash
         export GO_TEST_TIMEOUT_SCALE=4
         export GOPROXY="https://proxy.golang.org,direct"
         export GOSUMDB="sum.golang.org"
         export GOENV=off
-        eval $(../misc/wasm/go_wasip1_wasm_exec ../bin/go tool dist env)
+        eval $(./misc/wasm/go_wasip1_wasm_exec ./bin/go run cmd/dist env)
         unset CDPATH	# in case user has it set
         export GOHOSTOS
+        export GOHOSTARCH
         export CC
         export GOPATH=/nonexist-gopath
-        # ../misc/wasm/go_wasip1_wasm_exec ../bin/go test ./...
+        # ./misc/wasm/go_wasip1_wasm_exec ./bin/go test ./...
 
     - name: Test using wasmedge
       shell: bash
