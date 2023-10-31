@@ -110,7 +110,7 @@ jobs:
         source /home/runner/.wasmer/wasmer.sh
         export GOWASIRUNTIME=wasmer
         wasmer -V
-        wasmer config
+        wasmer -h
         # Go config
         ls /home/runner/work/gotip-build/gotip-build/go
         cd ./go
