@@ -90,9 +90,10 @@ jobs:
         echo $PATH
         # Go config
         export GOHOSTOS=wasip1 GOHOSTARCH=wasm GOENV=/home/runner/.config/go/env
-        cd ./go/src
-        $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go env
-        $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go tool
+        cat /home/runner/.config/go/env
+        cd ./go
+        $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ./bin/go env
+        $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ./bin/go tool
         # Set up as run.bash
         # export GO_TEST_TIMEOUT_SCALE=4
         # export GOENV=off
@@ -101,8 +102,7 @@ jobs:
         # export CC
         # export GOPATH=/nonexist-gopath
         # $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go test ./...
-        cd ..
-        $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ./bin/go
+        # $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ./bin/go
 
     - name: Test using wasmer
       run: |
