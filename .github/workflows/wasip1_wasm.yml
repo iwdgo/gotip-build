@@ -112,7 +112,9 @@ jobs:
         wasmer -V
         wasmer -h
         # Go config
-        ls /home/runner/work/gotip-build/gotip-build/go
+        export GOHOSTOS=wasip1 GOHOSTARCH=wasm GOENV=/home/runner/.config/go/env
+        cat /home/runner/.config/go/env
+        # go env
         cd ./go
         export GOROOT=/home/runner/work/gotip-build/gotip-build/go
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go env
@@ -124,9 +126,7 @@ jobs:
         export GOENV=off
         eval $(./misc/wasm/go_wasip1_wasm_exec ./bin/go run cmd/dist env)
         unset CDPATH	# in case user has it set
-        export GOHOSTOS
-        export GOHOSTARCH
-        export CC
+        # export CC
         export GOPATH=/nonexist-gopath
         # ./misc/wasm/go_wasip1_wasm_exec ./bin/go test ./...
 
