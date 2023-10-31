@@ -79,6 +79,31 @@ jobs:
         # pattern ./...: directory prefix / does not contain main module or its selected dependencies
         # wazero run --cachedir=/home/runner/.cache/go-build -interpreter -mount=/:/ ../bin/go test ./...
 
+    - name: Test using wasmedge
+      shell: bash
+      run: |
+        curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash
+        source $HOME/.bashrc
+        export GOWASIRUNTIME=wasmedge
+        $HOME/.wasmedge/bin/wasmedge -v
+        # $HOME/.wasmedge/bin/wasmedge -h
+        echo $PATH
+        # Go config
+        export GOHOSTOS=wasip1 GOHOSTARCH=wasm GOENV=/home/runner/.config/go/env
+        cd ./go/src
+        $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go env
+        ls ../pkg/tool
+        # $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go tool
+        # Set up as run.bash
+        # export GO_TEST_TIMEOUT_SCALE=4
+        # export GOENV=off
+        eval $($HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go tool dist env)
+        # unset CDPATH	# in case user has it set
+        # export GOHOSTOS
+        # export CC
+        # export GOPATH=/nonexist-gopath
+        # $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go test ./...
+
     - name: Test using wasmer
       run: |
         curl https://get.wasmer.io -sSfL | sh
@@ -104,31 +129,6 @@ jobs:
         export CC
         export GOPATH=/nonexist-gopath
         # ./misc/wasm/go_wasip1_wasm_exec ./bin/go test ./...
-
-    - name: Test using wasmedge
-      shell: bash
-      run: |
-        curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash
-        source $HOME/.bashrc
-        export GOWASIRUNTIME=wasmedge
-        $HOME/.wasmedge/bin/wasmedge -v
-        # $HOME/.wasmedge/bin/wasmedge -h
-        echo $PATH
-        # Go config
-        export GOHOSTOS=wasip1 GOHOSTARCH=wasm GOENV=/home/runner/.config/go/env
-        cd ./go/src
-        $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go env
-        ls ../pkg/tool
-        # $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go tool
-        # Set up as run.bash
-        # export GO_TEST_TIMEOUT_SCALE=4
-        # export GOENV=off
-        eval $($HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go tool dist env)
-        # unset CDPATH	# in case user has it set
-        # export GOHOSTOS
-        # export CC
-        # export GOPATH=/nonexist-gopath
-        # $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go test ./...
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
