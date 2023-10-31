@@ -116,9 +116,7 @@ jobs:
         cat /home/runner/.config/go/env
         # go env
         cd ./go
-        export GOROOT=/home/runner/work/gotip-build/gotip-build/go
-        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env
-        ./misc/wasm/go_wasip1_wasm_exec ./bin/go tool
+        wasmer run --dir=/ --env PWD="$PWD" --env PATH="$PATH" ./bin/go env
         # Set up as run.bash
         export GO_TEST_TIMEOUT_SCALE=4
         export GOPROXY="https://proxy.golang.org,direct"
