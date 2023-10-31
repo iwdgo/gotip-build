@@ -40,7 +40,8 @@ jobs:
         eval $(../misc/wasm/go_js_wasm_exec ../bin/go tool dist env)
         unset CDPATH	# in case user has it set
         export GOHOSTOS
-        export CC
+        export GOHOSTARCH
+        # export CC
         export GOPATH=/nonexist-gopath
         ../misc/wasm/go_js_wasm_exec ../bin/go tool
         # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
