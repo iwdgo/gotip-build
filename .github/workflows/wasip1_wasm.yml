@@ -99,7 +99,6 @@ jobs:
         # export GOENV=off
         eval $($HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go tool dist env)
         # unset CDPATH	# in case user has it set
-        # export GOHOSTOS
         # export CC
         # export GOPATH=/nonexist-gopath
         # $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go test ./...
