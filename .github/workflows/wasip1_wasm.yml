@@ -115,7 +115,7 @@ jobs:
         export GOHOSTOS=wasip1 GOHOSTARCH=wasm
         # go env
         cd ./go
-        wasmer run --dir=/ --env PWD="$PWD" --env PATH="$PATH" ./bin/go env
+        wasmer run --dir=/ --env PWD="$PWD" --env PATH="$PATH" --mapdir /:/ ./bin/go env
         # Set up as run.bash
         export GO_TEST_TIMEOUT_SCALE=4
         export GOPROXY="https://proxy.golang.org,direct"
