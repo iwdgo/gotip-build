@@ -101,7 +101,6 @@ jobs:
         # unset CDPATH	# in case user has it set
         # export CC
         # export GOPATH=/nonexist-gopath
-        # $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ../bin/go test ./...
         # $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ./bin/go
 
     - name: Test using wasmer
@@ -112,10 +111,10 @@ jobs:
         wasmer -V
         wasmer -h
         # Go config
-        export GOHOSTOS=wasip1 GOHOSTARCH=wasm
+        export GOHOSTOS=wasip1 GOHOSTARCH=wasm GOROOT=/home/runner/work/gotip-build/gotip-build/go
         # go env
         cd ./go
-        wasmer run --dir=/ --env PWD="$PWD" --env PATH="$PATH" --mapdir /:/ ./bin/go env
+        wasmer run --dir=/ --env PWD="$PWD" --env PATH="$PATH" ./bin/go env
         # Set up as run.bash
         export GO_TEST_TIMEOUT_SCALE=4
         export GOPROXY="https://proxy.golang.org,direct"
