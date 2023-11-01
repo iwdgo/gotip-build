@@ -27,7 +27,7 @@ jobs:
       run: |
         mv -f go/bin/${{ env.goos }}_${{ env.goarch }}/* go/bin/ # erase native build
 
-    - name: Test using wasmruntime
+    - name: Test using wasmtime
       run: |
         curl https://wasmtime.dev/install.sh -sSf | bash
         export WASMTIME_HOME="$HOME/.wasmtime"
@@ -37,21 +37,21 @@ jobs:
         # wasmtime help
         # Go config
         export GOWASIRUNTIME=wasmtime
-        cd ./go/src
-        ../misc/wasm/go_wasip1_wasm_exec ../bin/go env
-        ../misc/wasm/go_wasip1_wasm_exec ../bin/go tool
+        cd ./go
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go tool
         # Set up as run.bash
         export GO_TEST_TIMEOUT_SCALE=4
         export GOPROXY="https://proxy.golang.org,direct"
         export GOSUMDB="sum.golang.org"
         export GOENV=off
-        eval $(../misc/wasm/go_wasip1_wasm_exec ../bin/go tool dist env)
+        eval $(./misc/wasm/go_wasip1_wasm_exec ./bin/go tool dist env)
         unset CDPATH	# in case user has it set
         export GOHOSTOS
         export CC
         export GOPATH=/nonexist-gopath
         # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
-        # ../misc/wasm/go_wasip1_wasm_exec ../bin/go test ./...
+        # ./misc/wasm/go_wasip1_wasm_exec ./bin/go test ./...
 
     - name: Test using wazero
       run: |
