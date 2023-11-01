@@ -23,7 +23,7 @@ jobs:
       uses: iwdgo/gotip-build@master-windows
       id: gotip
       with:
-        go_variables: $CGO_ENABLED = 0; $GOROOT_FINAL = "/"
+        go_variables: $GOROOT_FINAL = "/"
         test_build: true
 
     - name: Upload go executable
