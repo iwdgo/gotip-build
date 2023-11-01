@@ -1,4 +1,4 @@
-name: js/wasm
+name: js/wasm (smoke test)
 on:
   push:
     branches:

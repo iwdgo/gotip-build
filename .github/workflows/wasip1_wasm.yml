@@ -1,4 +1,4 @@
-name: wasip1/wasm
+name: wasip1/wasm (smoke test)
 on:
   push:
     branches:
