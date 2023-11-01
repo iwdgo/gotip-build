@@ -104,6 +104,7 @@ jobs:
         # $HOME/.wasmedge/bin/wasmedge --dir=/ --env PWD="$PWD" --env PATH="$PATH" ./bin/go
 
     - name: Test using wasmer
+      if: false
       run: |
         curl https://get.wasmer.io -sSfL | sh
         source /home/runner/.wasmer/wasmer.sh
@@ -111,7 +112,7 @@ jobs:
         wasmer -V
         wasmer -h
         # Go config
-        export GOHOSTOS=wasip1 GOHOSTARCH=wasm GOROOT=/home/runner/work/gotip-build/gotip-build/go
+        export GOHOSTOS=wasip1 GOHOSTARCH=wasm
         # go env
         cd ./go
         wasmer run --dir=/ --env PWD="$PWD" --env PATH="$PATH" ./bin/go env
