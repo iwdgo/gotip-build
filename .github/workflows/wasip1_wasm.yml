@@ -63,21 +63,21 @@ jobs:
         wazero -h
         # Go config
         export GOWASIRUNTIME=wazero
-        cd ./go/src
-        wazero run --cachedir=/home/runner/.cache/go-build -interpreter -mount=/:/ ../bin/go env
-        wazero run --cachedir=/home/runner/.cache/go-build -interpreter -mount=/:/ ../bin/go tool
+        cd ./go
+        wazero run --cachedir=/home/runner/.cache/go-build -interpreter -mount=/:/ ./bin/go env
+        wazero run --cachedir=/home/runner/.cache/go-build -interpreter -mount=/:/ ./bin/go tool
         # Set up as run.bash
         export GO_TEST_TIMEOUT_SCALE=4
         export GOPROXY="https://proxy.golang.org,direct"
         export GOSUMDB="sum.golang.org"
         export GOENV=off
-        eval $(../misc/wasm/go_wasip1_wasm_exec ../bin/go tool dist env)
+        eval $(./misc/wasm/go_wasip1_wasm_exec ./bin/go tool dist env)
         unset CDPATH	# in case user has it set
         export GOHOSTOS
         export CC
         export GOPATH=/nonexist-gopath
         # pattern ./...: directory prefix / does not contain main module or its selected dependencies
-        # wazero run --cachedir=/home/runner/.cache/go-build -interpreter -mount=/:/ ../bin/go test ./...
+        # wazero run --cachedir=/home/runner/.cache/go-build -interpreter -mount=/:/ ./bin/go test ./...
 
     - name: Test using wasmedge
       shell: bash
