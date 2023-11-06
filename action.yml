@@ -48,7 +48,10 @@ runs:
         if [ -z "$GOROOT_BOOTSTRAP" ]; then export GOROOT_BOOTSTRAP=$(go env GOROOT); fi
         export crosscompile=true
         if [ "$(go env GOOS)" == "$(go env GOHOSTOS)" -a "$(go env GOARCH)" == "$(go env GOHOSTARCH)" ]; then crosscompile=false; fi
+        if [ "$crosscompile" == "true" -a -z "$GOROOT" ]; then export GOROOT="/tmp/go"; fi
+        if [ "$crosscompile" == "false" -a -z "$GOROOT" ]; then export GOROOT="$(pwd)/go"; fi
         echo "crosscompile=$crosscompile" >> $GITHUB_ENV
+        echo "gorootfinal=$GOROOT" >> $GITHUB_ENV
         cd go/src
         ./make.bash --no-banner
         ../bin/go version
@@ -58,6 +61,8 @@ runs:
       if: ${{ inputs.test_build == 'true' && env.crosscompile == 'false' }}
       run: |
         export ${{ inputs.go_variables }}
+        echo $GOROOT
+        go env GOROOT
         if [ -z "$GOTOOLCHAIN" ]; then export GOTOOLCHAIN="auto"; fi
         cd go/src
         ./run.bash --no-rebuild
