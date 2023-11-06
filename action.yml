@@ -109,8 +109,8 @@ runs:
         docker cp ./go/src/. xalpine:/tmp/go/src/
         docker cp ./go/test/. xalpine:/tmp/go/test/
         # Smoke tests
-        docker exec xalpine go version
-        docker exec xalpine go env
+        docker exec -w /tmp/go xalpine ../bin/go version
+        docker exec -w /tmp/go xalpine ../bin/go env
         # Bash is the default shell when available
         export $(cat $GITHUB_ENV | grep usebash)
         runbash='./run.bash'
