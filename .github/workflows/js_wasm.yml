@@ -2,7 +2,7 @@ name: js/wasm (smoke test)
 on:
   push:
     branches:
-      - 'master'
+      - 'issue62047'
     paths:
       - 'action.yml'
       - '.github/workflows/js_wasm.yml'
