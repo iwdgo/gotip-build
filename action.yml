@@ -54,7 +54,8 @@ runs:
         echo "gorootfinal=$GOROOT" >> $GITHUB_ENV
         cd go/src
         ./make.bash --no-banner
-        ../bin/go version
+        # TODO Fails as GOROOT is altered
+        # ../bin/go version
 
     - name: Test locally
       shell: bash
@@ -62,6 +63,7 @@ runs:
       run: |
         export ${{ inputs.go_variables }}
         echo $GOROOT
+        go version
         go env GOROOT
         if [ -z "$GOTOOLCHAIN" ]; then export GOTOOLCHAIN="auto"; fi
         cd go/src
