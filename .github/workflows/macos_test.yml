@@ -22,6 +22,8 @@ jobs:
     - name: Build go from tip
       uses: iwdgo/gotip-build@master
       id: gotip
+      with:
+        go_variables: GO_TEST_SHORT=0
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
