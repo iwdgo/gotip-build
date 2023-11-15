@@ -23,7 +23,7 @@ jobs:
       uses: iwdgo/gotip-build@master
       id: gotip
       with:
-        go_variables: GO_TEST_SHORT=0
+        go_variables: GO_TEST_SHORT=0  GO_TEST_TIMEOUT_SCALE=5
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
