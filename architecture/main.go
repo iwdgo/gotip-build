@@ -149,6 +149,8 @@ func main() {
 
 	image := exec.Command("docker", "run", "-d", "-t",
 		"--platform", goarch,
+		// TODO Recover actual target GOROOT
+		"-e", setParam("GOROOT", "/tmp/go"),
 		"-e", setParam("GO_TEST_TIMEOUT_SCALE", "4"),
 		"-e", setParam("GOPROXY", "https://proxy.golang.org,direct"),
 		"-e", setParam("GOSUMDB", "sum.golang.org"),

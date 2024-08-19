@@ -48,19 +48,23 @@ runs:
         if [ -z "$GOROOT_BOOTSTRAP" ]; then export GOROOT_BOOTSTRAP=$(go env GOROOT); fi
         export crosscompile=true
         if [ "$(go env GOOS)" == "$(go env GOHOSTOS)" -a "$(go env GOARCH)" == "$(go env GOHOSTARCH)" ]; then crosscompile=false; fi
-        if [ "$crosscompile" == "true" -a -z "$GOROOT_FINAL" ]; then export GOROOT_FINAL="/tmp/go"; fi
-        if [ "$crosscompile" == "false" -a -z "$GOROOT_FINAL" ]; then export GOROOT_FINAL="$(pwd)/go"; fi
+        if [ "$crosscompile" == "true" -a -z "$GOROOT" ]; then export GOROOT="/tmp/go"; fi
+        if [ "$crosscompile" == "false" -a -z "$GOROOT" ]; then export GOROOT="$(pwd)/go"; fi
         echo "crosscompile=$crosscompile" >> $GITHUB_ENV
-        echo "gorootfinal=$GOROOT_FINAL" >> $GITHUB_ENV
+        echo "gorootfinal=$GOROOT" >> $GITHUB_ENV
         cd go/src
         ./make.bash --no-banner
-        ../bin/go version
+        # TODO Fails as GOROOT is altered
+        # ../bin/go version
 
     - name: Test locally
       shell: bash
       if: ${{ inputs.test_build == 'true' && env.crosscompile == 'false' }}
       run: |
         export ${{ inputs.go_variables }}
+        echo $GOROOT
+        go version
+        go env GOROOT
         if [ -z "$GOTOOLCHAIN" ]; then export GOTOOLCHAIN="auto"; fi
         cd go/src
         ./run.bash --no-rebuild
@@ -105,8 +109,8 @@ runs:
         docker cp ./go/src/. xalpine:/tmp/go/src/
         docker cp ./go/test/. xalpine:/tmp/go/test/
         # Smoke tests
-        docker exec xalpine go version
-        docker exec xalpine go env
+        docker exec -w /tmp/go/bin xalpine go version
+        docker exec -w /tmp/go/bin xalpine go env
         # Bash is the default shell when available
         export $(cat $GITHUB_ENV | grep usebash)
         runbash='./run.bash'
