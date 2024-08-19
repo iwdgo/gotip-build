@@ -48,8 +48,6 @@ runs:
         if [ -z "$GOROOT_BOOTSTRAP" ]; then export GOROOT_BOOTSTRAP=$(go env GOROOT); fi
         export crosscompile=true
         if [ "$(go env GOOS)" == "$(go env GOHOSTOS)" -a "$(go env GOARCH)" == "$(go env GOHOSTARCH)" ]; then crosscompile=false; fi
-        if [ "$crosscompile" == "true" -a -z "$GOROOT" ]; then export GOROOT="/tmp/go"; fi
-        if [ "$crosscompile" == "false" -a -z "$GOROOT" ]; then export GOROOT="$(pwd)/go"; fi
         echo "crosscompile=$crosscompile" >> $GITHUB_ENV
         cd go/src
         ./make.bash --no-banner
