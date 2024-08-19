@@ -54,8 +54,6 @@ runs:
         echo "gorootfinal=$GOROOT" >> $GITHUB_ENV
         cd go/src
         ./make.bash --no-banner
-        # TODO Fails as GOROOT is altered
-        # ../bin/go version
 
     - name: Test locally
       shell: bash
