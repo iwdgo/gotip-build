@@ -36,7 +36,7 @@ jobs:
       if: ${{ env.crosscompile == 'false' }}
       with:
         name: gotip-${{ env.goos }}-${{ env.goarch }}
-        path: go/bin/
+        path: go/
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
