@@ -39,13 +39,12 @@ runs:
         go env -w GOARCH=$GOARCH
         echo "goos=$GOOS" >> $env:GITHUB_ENV
         echo "goarch=$GOARCH" >> $env:GITHUB_ENV
-        cd go/src
         If (!(Test-Path variable:GOROOT_BOOTSTRAP)) { $GOROOT_BOOTSTRAP = "$(go env GOROOT)" }
-        .\make.bat --no-banner --no-local
-        ..\bin\go.exe version
         $crosscompile = 'true'
         if (($GOOS -eq $(go env GOHOSTOS)) -and ($GOARCH -eq $(go env GOHOSTARCH))) { $crosscompile = 'false' }
         echo "crosscompile=$crosscompile" >> $env:GITHUB_ENV
+        cd go/src
+        .\make.bat --no-banner --no-local
 
     - name: Test locally
       shell: powershell
