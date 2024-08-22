@@ -58,7 +58,7 @@ runs:
       shell: powershell
       if: ${{ inputs.test_build == 'true' && env.crosscompile == 'true' }}
       run: |
-        echo "Testing a cross-compiled version of Go is currently not implemented"
+        echo "Testing a cross-compiled version of Go on windows is not implemented for now"
 
 branding:
   icon: crosshair
