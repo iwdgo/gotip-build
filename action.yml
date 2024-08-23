@@ -40,13 +40,9 @@ runs:
         echo "goos=$GOOS" >> $env:GITHUB_ENV
         echo "goarch=$GOARCH" >> $env:GITHUB_ENV
         If (!(Test-Path variable:GOROOT_BOOTSTRAP)) { $GOROOT_BOOTSTRAP = "$(go env GOROOT)" }
-        echo $GOROOT_BOOTSTRAP
-        go env -w GOROOT_BOOTSTRAP=$GOROOT_BOOTSTRAP
         $crosscompile = 'true'
         if (($GOOS -eq $(go env GOHOSTOS)) -and ($GOARCH -eq $(go env GOHOSTARCH))) { $crosscompile = 'false' }
         echo "crosscompile=$crosscompile" >> $env:GITHUB_ENV
-        go version
-        go env
         cd go/src
         .\make.bat --no-banner --no-local
 
