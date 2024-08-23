@@ -44,7 +44,7 @@ runs:
         if (($GOOS -eq $(go env GOHOSTOS)) -and ($GOARCH -eq $(go env GOHOSTARCH))) { $crosscompile = 'false' }
         echo "crosscompile=$crosscompile" >> $env:GITHUB_ENV
         cd go/src
-        .\make.bat --no-banner --no-local
+        .\make.bat --no-banner
 
     - name: Test locally
       shell: powershell
