@@ -20,7 +20,7 @@ jobs:
       uses: iwdgo/gotip-build@master
       id: gotip
       with:
-        go_variables: GOOS=wasip1 GOARCH=wasm GOROOT_FINAL=/home/runner/work/gotip-build/gotip-build/go
+        go_variables: GOOS=wasip1 GOARCH=wasm
         test_build: false
 
     - name: Install Go wasm
@@ -51,7 +51,8 @@ jobs:
         export CC
         export GOPATH=/nonexist-gopath
         # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
-        # ./misc/wasm/go_wasip1_wasm_exec ./bin/go test ./...
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go version
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go test ./...
 
     - name: Test using wazero
       run: |
