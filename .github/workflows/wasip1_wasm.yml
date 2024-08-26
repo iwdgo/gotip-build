@@ -2,7 +2,7 @@ name: wasip1/wasm (smoke test)
 on:
   push:
     branches:
-      - 'master'
+      - 'wasip1'
     paths:
       - 'action.yml'
       - '.github/workflows/wasip1_wasm.yml'
