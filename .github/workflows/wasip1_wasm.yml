@@ -43,6 +43,7 @@ jobs:
         cd ./go
         mkdir /tmp/home
         export HOME='/tmp/home' 
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w HOME=$HOME
         export GOENV=$HOME/go-env 
         mkdir $HOME/go-cache
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE=$HOME/go-cache
