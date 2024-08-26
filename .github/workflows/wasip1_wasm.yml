@@ -41,6 +41,8 @@ jobs:
         # Go config
         export GOWASIRUNTIME=wasmtime
         cd ./go
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go version
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env
         export GOENV="$HOME/go-env" 
         mkdir "$HOME/go-cache"
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE="$HOME/go-cache"
