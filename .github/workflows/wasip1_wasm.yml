@@ -41,11 +41,9 @@ jobs:
         # Go config
         export GOWASIRUNTIME=wasmtime
         cd ./go
-        mkdir /tmp/home
-        export HOME='/tmp/home' 
-        export GOENV=$HOME/go-env 
-        mkdir $HOME/go-cache
-        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE=$HOME/go-cache
+        export GOENV="$HOME/go-env" 
+        mkdir "$HOME/go-cache"
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE="$HOME/go-cache"
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go tool
         # Set up as run.bash
         export GO_TEST_TIMEOUT_SCALE=4
