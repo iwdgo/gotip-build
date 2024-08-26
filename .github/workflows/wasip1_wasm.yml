@@ -45,7 +45,6 @@ jobs:
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go env
         export GOENV="$HOME/go-env" 
         mkdir "$HOME/go-cache"
-        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w GOENV="$GOENV"
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE="$HOME/go-cache"
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go tool
         # Set up as run.bash
@@ -60,6 +59,7 @@ jobs:
         export GOPATH=/nonexist-gopath
         # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go version
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go test ./src/... 
 
     - name: Test using wazero
