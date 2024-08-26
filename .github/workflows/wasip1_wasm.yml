@@ -43,18 +43,18 @@ jobs:
         cd ./go
         mkdir /tmp/home
         export HOME='/tmp/home' 
-        export GOENV='/tmp/go-env' 
-        mkdir /tmp/go-cache
-        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE='/tmp/go-cache' 
+        export GOENV=$HOME/go-env 
+        mkdir $HOME/go-cache
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE=$HOME/go-cache
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go tool
         # Set up as run.bash
         export GO_TEST_TIMEOUT_SCALE=4
         export GOPROXY="https://proxy.golang.org,direct"
         export GOSUMDB="sum.golang.org"
-        export GOENV=off
+        # export GOENV=off
         eval $(./misc/wasm/go_wasip1_wasm_exec ./bin/go tool dist env)
         unset CDPATH	# in case user has it set
-        export GOHOSTOS
+        export GOHOSTOS=$GOOS
         export CC
         export GOPATH=/nonexist-gopath
         # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
