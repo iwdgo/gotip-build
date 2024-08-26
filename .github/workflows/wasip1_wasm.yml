@@ -45,6 +45,7 @@ jobs:
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go env
         export GOENV="$HOME/go-env" 
         mkdir "$HOME/go-cache"
+        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w GOENV="$GOENV"
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE="$HOME/go-cache"
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go tool
         # Set up as run.bash
