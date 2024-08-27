@@ -15,6 +15,9 @@ jobs:
 
     - name: Set up Go
       uses: actions/setup-go@v5
+      with:
+        go-version: 1.22.x
+      id: go
 
     - name: Build go from tip
       uses: iwdgo/gotip-build@master
@@ -45,14 +48,14 @@ jobs:
         export GOPATH=/nonexist-gopath
         ./misc/wasm/go_js_wasm_exec ./bin/go tool
         # go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
-        cd ./src
+        # cd ./src
         # ../misc/wasm/go_js_wasm_exec ../bin/go test 
-        # go: error obtaining buildID for go tool compile: pipe: not implemented on js
-        # ./misc/wasm/go_js_wasm_exec ./bin/go run cmd/dist test
+        # go: RLock go.mod: unsupported operation
+        #../misc/wasm/go_js_wasm_exec ../bin/go run cmd/dist test
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
       if: ${{ env.crosscompile == 'true' }}
       with:
         name: gotip-${{ env.goos }}-${{ env.arch }}
-        path: go/bin/
+        path: go/
