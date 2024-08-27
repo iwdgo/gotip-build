@@ -52,13 +52,16 @@ jobs:
         export GO_TEST_TIMEOUT_SCALE=4
         # export GOPROXY="https://proxy.golang.org,direct"
         # export GOSUMDB="sum.golang.org"
-        eval $(./misc/wasm/go_wasip1_wasm_exec ./bin/go tool dist env)
+        # go tool dist: fork/exec /home/runner/work/gotip-build/gotip-build/go/pkg/tool/wasip1_wasm/dist: Not implemented on wasip1
+        # eval $(./misc/wasm/go_wasip1_wasm_exec ./bin/go tool dist env)
         unset CDPATH	# in case user has it set
-        export GOHOSTOS=$GOOS
+        export GOHOSTOS
         export CC
         export GOPATH=/nonexist-gopath
+        export GOENV=off
         # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go env
+        echo $GOCACHE $GOENV
         ./misc/wasm/go_wasip1_wasm_exec ./bin/go test ./src/... 
 
     - name: Test using wazero
