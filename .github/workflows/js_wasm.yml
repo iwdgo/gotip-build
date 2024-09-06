@@ -37,21 +37,21 @@ jobs:
         export GOPROXY="https://proxy.golang.org,direct"
         export GOSUMDB="sum.golang.org"
         cd ./go
-        ./misc/wasm/go_js_wasm_exec ./bin/go env
+        ./lib/wasm/go_js_wasm_exec ./bin/go env
         echo "Set up as in run.bash"
         export GOENV=off
-        eval $(./misc/wasm/go_js_wasm_exec ./bin/go tool dist env)
+        eval $(./lib/wasm/go_js_wasm_exec ./bin/go tool dist env)
         unset CDPATH	# in case user has it set
         export GOHOSTOS
         export GOHOSTARCH
         # export CC
         export GOPATH=/nonexist-gopath
-        ./misc/wasm/go_js_wasm_exec ./bin/go tool
+        ./lib/wasm/go_js_wasm_exec ./bin/go tool
         # go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
         # cd ./src
-        # ../misc/wasm/go_js_wasm_exec ../bin/go test 
+        # ../lib/wasm/go_js_wasm_exec ../bin/go test 
         # go: RLock go.mod: unsupported operation
-        #../misc/wasm/go_js_wasm_exec ../bin/go run cmd/dist test
+        #../lib/wasm/go_js_wasm_exec ../bin/go run cmd/dist test
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
