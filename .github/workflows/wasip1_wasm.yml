@@ -41,28 +41,28 @@ jobs:
         # Go config
         export GOWASIRUNTIME=wasmtime
         cd ./go
-        ./misc/wasm/go_wasip1_wasm_exec ./bin/go version
-        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env
+        ./lib/wasm/go_wasip1_wasm_exec ./bin/go version
+        ./lib/wasm/go_wasip1_wasm_exec ./bin/go env
         export GOENV="$HOME/go-env" 
         mkdir "$HOME/go-cache"
         export GOCACHE="$HOME/go-cache"
-        # ./misc/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE="$HOME/go-cache"
-        ./misc/wasm/go_wasip1_wasm_exec ./bin/go tool
+        # ./lib/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE="$HOME/go-cache"
+        ./lib/wasm/go_wasip1_wasm_exec ./bin/go tool
         # Set up from run.bash
         export GO_TEST_TIMEOUT_SCALE=4
         # export GOPROXY="https://proxy.golang.org,direct"
         # export GOSUMDB="sum.golang.org"
         # go tool dist: fork/exec /home/runner/work/gotip-build/gotip-build/go/pkg/tool/wasip1_wasm/dist: Not implemented on wasip1
-        # eval $(./misc/wasm/go_wasip1_wasm_exec ./bin/go tool dist env)
+        # eval $(./lib/wasm/go_wasip1_wasm_exec ./bin/go tool dist env)
         unset CDPATH	# in case user has it set
         export GOHOSTOS
         export CC
         export GOPATH=/nonexist-gopath
         export GOENV=off
         # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
-        ./misc/wasm/go_wasip1_wasm_exec ./bin/go env
+        ./lib/wasm/go_wasip1_wasm_exec ./bin/go env
         echo $GOCACHE $GOENV
-        ./misc/wasm/go_wasip1_wasm_exec ./bin/go test ./src/... 
+        ./lib/wasm/go_wasip1_wasm_exec ./bin/go test ./src/... 
 
     - name: Test using wazero
       run: |
@@ -82,7 +82,7 @@ jobs:
         export GOPROXY="https://proxy.golang.org,direct"
         export GOSUMDB="sum.golang.org"
         export GOENV=off
-        eval $(./misc/wasm/go_wasip1_wasm_exec ./bin/go tool dist env)
+        eval $(./lib/wasm/go_wasip1_wasm_exec ./bin/go tool dist env)
         unset CDPATH	# in case user has it set
         export GOHOSTOS
         export CC
@@ -132,11 +132,11 @@ jobs:
         export GOPROXY="https://proxy.golang.org,direct"
         export GOSUMDB="sum.golang.org"
         export GOENV=off
-        eval $(./misc/wasm/go_wasip1_wasm_exec ./bin/go run cmd/dist env)
+        eval $(./lib/wasm/go_wasip1_wasm_exec ./bin/go run cmd/dist env)
         unset CDPATH	# in case user has it set
         # export CC
         export GOPATH=/nonexist-gopath
-        # ./misc/wasm/go_wasip1_wasm_exec ./bin/go test ./...
+        # ./lib/wasm/go_wasip1_wasm_exec ./bin/go test ./...
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
