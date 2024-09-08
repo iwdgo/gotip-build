@@ -2,7 +2,7 @@ name: linux
 on:
   push:
     branches:
-      - 'master'
+      - 'linux_mips64le'
     paths:
       - 'action.yml'
       - '.github/workflows/linux_test.yml'
@@ -11,7 +11,7 @@ jobs:
   build:
     strategy:
       matrix:
-        go_arch: [amd64, arm64, mips64le, ppc64le, riscv64, s390x, 386]
+        go_arch: [mips64le]
       fail-fast: false
     name: Build
     runs-on: ubuntu-latest

@@ -90,7 +90,7 @@ runs:
         docker exec xalpine mkdir /tmp/go/test/syntax/
         docker exec xalpine mkdir /tmp/go/test/typeparam/
         # Go variables
-        docker exec xalpine mkdir -p /root/.config/go/ # GOENV
+        docker exec xalpine mkdir -p /root/.config/go/telemetry # GOENV GOTELEMETRY
         docker exec xalpine mkdir -p /root/.cache/go-build/ # GOCACHE
         docker exec xalpine mkdir -p /root/go/pkg/mod/ # GOMODCACHE
         docker exec xalpine mkdir /tmp/go-build/
