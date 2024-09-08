@@ -23,7 +23,7 @@ jobs:
       id: go
 
     - name: Build go from tip
-      uses: iwdgo/gotip-build@master
+      uses: iwdgo/gotip-build@linux_mips64le
       id: gotip
       with:
         go_variables: GOARCH=${{ matrix.go_arch }}
