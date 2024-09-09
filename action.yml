@@ -33,6 +33,7 @@ runs:
         export ${{ inputs.go_variables }}
         mkdir -p $(go env GOCACHE)
         mkdir -p $(go env GOMODCACHE)
+        mkdir -p $(go env GOTELEMETRYDIR)
         mkdir -p $(dirname $(go env GOENV))
         mkdir -p $(go env GOPATH)/bin
         echo $PATH
@@ -90,7 +91,7 @@ runs:
         docker exec xalpine mkdir /tmp/go/test/syntax/
         docker exec xalpine mkdir /tmp/go/test/typeparam/
         # Go variables
-        docker exec xalpine mkdir -p /root/.config/go/telemetry # GOENV GOTELEMETRY
+        docker exec xalpine mkdir -p /root/.config/go/telemetry # GOENV GOTELEMETRYDIR
         docker exec xalpine mkdir -p /root/.cache/go-build/ # GOCACHE
         docker exec xalpine mkdir -p /root/go/pkg/mod/ # GOMODCACHE
         docker exec xalpine mkdir /tmp/go-build/
@@ -105,6 +106,7 @@ runs:
         docker cp ./go/test/. xalpine:/tmp/go/test/
         # Smoke tests
         docker exec -w /tmp/go/bin xalpine go version
+        docker exec -w /tmp/go/bin xalpine go tool
         docker exec -w /tmp/go/bin xalpine go env
         # Bash is the default shell when available
         export $(cat $GITHUB_ENV | grep usebash)
