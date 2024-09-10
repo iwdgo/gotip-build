@@ -137,7 +137,7 @@ func main() {
 	switch qemuarch {
 	case "mips64le":
 		// TODO Only load the requested architecture
-		qemu = exec.Command("docker", "run", "--rm", "--privileged", "multiarch/qemu-user-static:mips64",
+		qemu = exec.Command("docker", "run", "--rm", "--privileged", "multiarch/qemu-user-static:amd64-mips64",
 			"--reset", "-p", "yes")
 	}
 	out, err := qemu.Output()
