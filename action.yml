@@ -68,7 +68,7 @@ runs:
       shell: bash
       if: ${{ inputs.test_build == 'true' && env.crosscompile == 'true' }}
       run: |
-        go install github.com/iwdgo/gotip-build/architecture@latest
+        go install github.com/iwdgo/gotip-build/architecture@linux_mips64le
         export ${{ inputs.go_variables }}
         architecture -imagebase=alpine
         export tooldir=${{ env.goos }}_${{ env.goarch }}
