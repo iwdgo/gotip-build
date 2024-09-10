@@ -149,8 +149,8 @@ func main() {
 
 	image := exec.Command("docker", "run", "-d", "-t",
 		"--platform", goarch,
-		// TODO GOROOT is arbitrary
-		// "-e", setParam("GOROOT", "/tmp/go"),
+		// Copying compiled go requires to set GOROOT. TODO Use parameter
+		"-e", setParam("GOROOT", "/tmp/go"),
 		"-e", setParam("GO_TEST_TIMEOUT_SCALE", "4"),
 		"-e", setParam("GOPROXY", "https://proxy.golang.org,direct"),
 		"-e", setParam("GOSUMDB", "sum.golang.org"),
