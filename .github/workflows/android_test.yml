@@ -24,6 +24,12 @@ jobs:
         sudo udevadm control --reload-rules
         sudo udevadm trigger --name-match=kvm
 
+    - name: Load emulator and smoke test
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        script: ./gradlew connectedCheck
+
     - name: Build go from tip
       uses: iwdgo/gotip-build@android
       id: gotip
