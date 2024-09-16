@@ -28,7 +28,7 @@ jobs:
       uses: reactivecircus/android-emulator-runner@v2
       with:
         api-level: 29
-        script: ''
+        script: 'ls'
 
     - name: Build go from tip
       uses: iwdgo/gotip-build@android
