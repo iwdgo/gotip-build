@@ -1,4 +1,4 @@
-name: linux
+name: android
 on:
   push:
     branches:
@@ -28,7 +28,7 @@ jobs:
       uses: iwdgo/gotip-build@android
       id: gotip
       with:
-        go_variables: GOOS=android GOARCH=amd64
+        go_variables: GOOS=android GOARCH=amd64 CGO_ENABLED=1
         test_build: true
 
     - name: Upload go executable
