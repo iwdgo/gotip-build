@@ -2,7 +2,7 @@ name: linux
 on:
   push:
     branches:
-      - 'linux_mips64le'
+      - 'linux_kvm'
     paths:
       - 'action.yml'
       - '.github/workflows/linux_test.yml'
@@ -11,34 +11,34 @@ jobs:
   build:
     strategy:
       matrix:
-        go_arch: [mips64le]
+        go_arch: [amd64, arm64, mips64le, ppc64le, riscv64, s390x, '386']
       fail-fast: false
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: 1.22.x
-      id: go
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 1.22.x
+        id: go
 
-    - name: Build go from tip
-      uses: iwdgo/gotip-build@linux_mips64le
-      id: gotip
-      with:
-        go_variables: GOARCH=${{ matrix.go_arch }}
-        test_build: true
+      - name: Build go from tip
+        uses: iwdgo/gotip-build@linux_kvm
+        id: gotip
+        with:
+          go_variables: GOARCH=${{ matrix.go_arch }}
+          test_build: true
 
-    - name: Upload go executable
-      uses: actions/upload-artifact@v3
-      if: ${{ env.crosscompile == 'false' }}
-      with:
-        name: gotip-${{ env.goos }}-${{ env.goarch }}
-        path: go/
+      - name: Upload go executable
+        uses: actions/upload-artifact@v3
+        if: ${{ env.crosscompile == 'false' }}
+        with:
+          name: gotip-${{ env.goos }}-${{ env.goarch }}
+          path: go/
 
-    - name: Upload go executable
-      uses: actions/upload-artifact@v3
-      if: ${{ env.crosscompile == 'true' }}
-      with:
-        name: gotip-${{ env.goos }}-${{ env.goarch }}
-        path: go/bin/${{ env.goos }}_${{ env.goarch }}
+      - name: Upload go executable
+        uses: actions/upload-artifact@v3
+        if: ${{ env.crosscompile == 'true' }}
+        with:
+          name: gotip-${{ env.goos }}-${{ env.goarch }}
+          path: go/bin/${{ env.goos }}_${{ env.goarch }}
