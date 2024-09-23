@@ -22,6 +22,12 @@ jobs:
           go-version: 1.22.x
         id: go
 
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
       - name: Build go from tip
         uses: iwdgo/gotip-build@linux_kvm
         id: gotip
