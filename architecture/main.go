@@ -132,7 +132,7 @@ func main() {
 		log.Print("GITHUB_ENV is not set. bash is used by default.")
 	}
 
-	qemu := exec.Command("docker", "run", "--rm", "--privileged", "tonistiigi/binfmt:latest",
+	qemu := exec.Command("docker", "run", "--rm", "--privileged", "--device=/dev/kvm", "tonistiigi/binfmt:latest",
 		"--install", qemuarch)
 	switch qemuarch {
 	case "mips64le":
