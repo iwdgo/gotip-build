@@ -60,7 +60,6 @@ runs:
         echo $GOROOT
         go version
         go env GOROOT
-        if [ -z "$GOTOOLCHAIN" ]; then export GOTOOLCHAIN="auto"; fi
         cd go/src
         ./run.bash --no-rebuild
 
