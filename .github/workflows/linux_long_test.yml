@@ -1,0 +1,32 @@
+name: linux - long test
+on:
+  push:
+    branches:
+      - 'master'
+    paths:
+      - 'action.yml'
+      - '.github/workflows/linux_long_test.yml'
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: 1.22.x
+      id: go
+
+    - name: Build go from tip
+      uses: iwdgo/gotip-build@master
+      id: gotip
+      with:
+        go_variables: GO_TEST_SHORT=0 GO_TEST_TIMEOUT_SCALE=8
+        test_build: true
+
+    - name: Upload go executable
+      uses: actions/upload-artifact@v3
+      with:
+        name: gotip-${{ env.goos }}-${{ env.goarch }}
+        path: go/
