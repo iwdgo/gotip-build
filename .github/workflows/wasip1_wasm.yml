@@ -42,6 +42,7 @@ jobs:
         export GOWASIRUNTIME=wasmtime
         cd ./go
         ./lib/wasm/go_wasip1_wasm_exec ./bin/go version
+        echo '$HOME=' $HOME ' $GOCACHE=' $GOCACHE '$GOENV=' $GOENV
         export GOENV="$HOME/go-env"
         touch $GOENV
         cat $GOENV
@@ -62,7 +63,6 @@ jobs:
         # export GOENV=off
         # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
         ./lib/wasm/go_wasip1_wasm_exec ./bin/go env
-        echo '$HOME=' $HOME ' $GOCACHE=' $GOCACHE '$GOENV=' $GOENV
         ./lib/wasm/go_wasip1_wasm_exec ./bin/go test ./src/... 
 
     - name: Test using wazero
