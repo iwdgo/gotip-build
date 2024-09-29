@@ -1,4 +1,4 @@
-name: macos (amd64)
+name: macos (amd64) (long)
 on:
   push:
     branches:
@@ -9,6 +9,10 @@ on:
 jobs:
 
   build:
+    strategy:
+      matrix:
+        long_test: [ '0', '1' ]
+      fail-fast: false
     name: Build
     runs-on: macos-13
     steps:
@@ -23,7 +27,7 @@ jobs:
       uses: iwdgo/gotip-build@master
       id: gotip
       with:
-        go_variables: GO_TEST_SHORT=0  GO_TEST_TIMEOUT_SCALE=5
+        go_variables: GO_TEST_SHORT=${{ matrix.long_test }}  GO_TEST_TIMEOUT_SCALE=5
 
     - name: Upload go executable
       uses: actions/upload-artifact@v3
