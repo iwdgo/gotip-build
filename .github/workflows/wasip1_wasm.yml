@@ -46,19 +46,19 @@ jobs:
         export GOENV="$HOME/go-env" 
         mkdir "$HOME/go-cache"
         export GOCACHE="$HOME/go-cache"
-        # ./lib/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE="$HOME/go-cache"
         ./lib/wasm/go_wasip1_wasm_exec ./bin/go tool
+        ./lib/wasm/go_wasip1_wasm_exec ./bin/go env -w GOCACHE=$HOME/go-cache
         # Set up from run.bash
         export GO_TEST_TIMEOUT_SCALE=4
         # export GOPROXY="https://proxy.golang.org,direct"
         # export GOSUMDB="sum.golang.org"
         # go tool dist: fork/exec /home/runner/work/gotip-build/gotip-build/go/pkg/tool/wasip1_wasm/dist: Not implemented on wasip1
         # eval $(./lib/wasm/go_wasip1_wasm_exec ./bin/go tool dist env)
-        unset CDPATH	# in case user has it set
-        export GOHOSTOS
-        export CC
-        export GOPATH=/nonexist-gopath
-        export GOENV=off
+        # unset CDPATH	# in case user has it set
+        export GOHOSTOS=wasip1
+        # export CC
+        # export GOPATH=/nonexist-gopath
+        # export GOENV=off
         # TODO Fails with go: RLock /home/runner/work/go-upon-ci/go-upon-ci/go/src/go.mod: unsupported operation
         ./lib/wasm/go_wasip1_wasm_exec ./bin/go env
         echo '$HOME=' $HOME ' $GOCACHE=' $GOCACHE '$GOENV=' $GOENV
