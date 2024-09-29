@@ -1,4 +1,4 @@
-name: macos
+name: macos - long and short - m1
 on:
   push:
     branches:

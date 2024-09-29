@@ -1,4 +1,4 @@
-name: macos (amd64) (long)
+name: macos - long and short - amd64
 on:
   push:
     branches:

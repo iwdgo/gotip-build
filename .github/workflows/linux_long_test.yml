@@ -1,4 +1,4 @@
-name: linux - long test
+name: linux - long test - amd64
 on:
   push:
     branches:
