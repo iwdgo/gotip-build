@@ -43,7 +43,8 @@ jobs:
         cd ./go
         ./lib/wasm/go_wasip1_wasm_exec ./bin/go version
         ./lib/wasm/go_wasip1_wasm_exec ./bin/go env
-        export GOENV="$HOME/go-env" 
+        export GOENV="$HOME/go-env"
+        touch $GOENV
         mkdir "$HOME/go-cache"
         export GOCACHE="$HOME/go-cache"
         ./lib/wasm/go_wasip1_wasm_exec ./bin/go tool
