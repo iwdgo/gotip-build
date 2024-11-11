@@ -25,6 +25,7 @@ jobs:
       uses: iwdgo/gotip-build@master-windows
       id: gotip
       with:
+        go_variables: $GOROOT_BOOTSTRAP = 'C:\hostedtoolcache\windows\go\1.22.8\x64\'
         test_build: true
 
     - name: Upload go executable
