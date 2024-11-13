@@ -18,7 +18,7 @@ Usage:
       uses: iwdgo/gotip-build@master-windows
       id: gotip
       with:
-        go_variables: $CGO_ENABLED = 1
+        go_variables: $Env:CGO_ENABLED = 1
         test_build: false
 
 ```
