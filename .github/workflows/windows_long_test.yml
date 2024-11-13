@@ -1,4 +1,4 @@
-name: windows
+name: windows - long test
 on:
   push:
     branches:
