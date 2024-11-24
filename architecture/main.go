@@ -152,9 +152,7 @@ func main() {
 		// TODO GOROOT is arbitrary
 		"-e", setParam("GOROOT", "/tmp/go"),
 		"-e", setParam("GO_TEST_TIMEOUT_SCALE", "4"),
-		"-e", setParam("GOPROXY", "https://proxy.golang.org,direct"),
 		"-e", setParam("GOSUMDB", "sum.golang.org"),
-		"-e", setParam("GOTOOLCHAIN", "auto"),
 		"--name", containername,
 		imagename)
 	log.Printf("%v", image)
