@@ -65,6 +65,10 @@ runs:
       shell: bash
       if: ${{ inputs.test_build == 'true' && env.crosscompile == 'true' }}
       run: |
+        # Enable KVM
+        echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+        sudo udevadm control --reload-rules
+        sudo udevadm trigger --name-match=kvm
         go install github.com/iwdgo/gotip-build/architecture@check-config
         export ${{ inputs.go_variables }}
         architecture -imagebase=alpine
