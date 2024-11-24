@@ -5,6 +5,7 @@ on:
       - 'linux_kvm'
     paths:
       - 'action.yml'
+      - 'architecture'
       - '.github/workflows/linux_test.yml'
 jobs:
 
