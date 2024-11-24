@@ -33,8 +33,6 @@ runs:
         export ${{ inputs.go_variables }}
         mkdir -p $(go env GOMODCACHE)
         mkdir -p $(dirname $(go env GOENV))
-        ls -l $(go env GOPATH)
-        mkdir -p $(go env GOPATH)/bin
         echo $PATH
 
     - name: Build
