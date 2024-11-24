@@ -31,9 +31,13 @@ runs:
       shell: bash
       run: |
         export ${{ inputs.go_variables }}
+        ls -l $(go env GOCACHE)
         mkdir -p $(go env GOCACHE)
+        ls -l $(go env GOMODCACHE)
         mkdir -p $(go env GOMODCACHE)
+        ls -l $(dirname $(go env GOENV))
         mkdir -p $(dirname $(go env GOENV))
+        ls -l $(go env GOPATH)
         mkdir -p $(go env GOPATH)/bin
         echo $PATH
 
@@ -67,7 +71,7 @@ runs:
       shell: bash
       if: ${{ inputs.test_build == 'true' && env.crosscompile == 'true' }}
       run: |
-        go install github.com/iwdgo/gotip-build/architecture@latest
+        go install github.com/iwdgo/gotip-build/architecture@check-config
         export ${{ inputs.go_variables }}
         architecture -imagebase=alpine
         export tooldir=${{ env.goos }}_${{ env.goarch }}
