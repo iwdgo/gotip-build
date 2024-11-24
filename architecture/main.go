@@ -132,8 +132,8 @@ func main() {
 		log.Print("GITHUB_ENV is not set. bash is used by default.")
 	}
 
-	qemu := exec.Command("docker", "run", "--rm", "--privileged", "tonistiigi/binfmt:latest",
-		"--install", qemuarch)
+	qemu := exec.Command("docker", "run", "--rm", "--privileged", "--device=/dev/kvm",
+		"tonistiigi/binfmt:latest", "--install", qemuarch)
 	switch qemuarch {
 	case "mips64le":
 		// TODO Only load the requested architecture
@@ -147,7 +147,7 @@ func main() {
 	log.Printf("%s", out)
 	log.Printf("Starting %s as %s for %s", imagename, containername, goarch)
 
-	image := exec.Command("docker", "run", "-d", "-t",
+	image := exec.Command("docker", "run", "-d", "-t", "--device=/dev/kvm",
 		"--platform", goarch,
 		// TODO GOROOT is arbitrary
 		"-e", setParam("GOROOT", "/tmp/go"),
