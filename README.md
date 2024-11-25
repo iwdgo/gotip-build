@@ -18,7 +18,7 @@ Usage with `bash`:
       uses: iwdgo/gotip-build@v0.6.0
       id: gotip
       with:
-        go_variables: GOROOT_FINAL=/ CGO_ENABLED=0
+        go_variables: CGO_ENABLED=0
         test_build: true
 
 ```
@@ -31,7 +31,7 @@ On Windows, using `powershell` is identical except for the version tag which is 
       uses: iwdgo/gotip-build@master-windows
       id: gotip
       with:
-        go_variables: $GOROOT_FINAL = "/"; $CGO_ENABLED = 0
+        go_variables: $CGO_ENABLED = 0
         test_build: false
 
 ```
