@@ -5,7 +5,7 @@ on:
       - 'updates'
     paths:
       - 'action.yml'
-      - 'dragonfly.yml'
+      - '.github/workflows/dragonfly.yml'
 jobs:
 
   build:
