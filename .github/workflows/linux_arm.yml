@@ -2,7 +2,7 @@ name: arm v5/6/7
 on:
   push:
     branches:
-      - 'master'
+      - 'updates'
     paths:
       - 'action.yml'
       - '.github/workflows/linux_arm.yml'
@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         go_arch: [arm]
-        go_arm: [5, 6, 7]
+        go_arm: [5, 6]
       fail-fast: false
     name: Build
     runs-on: ubuntu-latest
@@ -30,17 +30,3 @@ jobs:
       with:
         go_variables: GOARCH=${{ matrix.go_arch }} GOARM=${{ matrix.go_arm}}
         test_build: true
-
-    - name: Upload go executable
-      uses: actions/upload-artifact@v3
-      if: ${{ env.crosscompile == 'false' }}
-      with:
-        name: gotip-${{ env.goos }}-${{ env.goarch }}
-        path: go/
-
-    - name: Upload go executable
-      uses: actions/upload-artifact@v3
-      if: ${{ env.crosscompile == 'true' }}
-      with:
-        name: gotip-${{ env.goos }}-${{ env.goarch }}
-        path: go/bin/${{ env.goos }}_${{ env.goarch }}

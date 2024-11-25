@@ -34,11 +34,11 @@ var distro = []struct {
 	{"linux", "ppc64le", "", "", "", "", ""},
 	{"linux", "riscv64", "", "", "edge", "", ""},
 	{"linux", "arm", "5", "", "", "arm32v5/golang", "arm v5"},
-	// TODO arm32v6/golang:alpine
-	{"linux", "arm", "6", "", "", "", "arm v6"},
+	{"linux", "arm", "6", "", "", "arm32v6/golang", "arm v6"},
 	{"linux", "arm", "7", "", "", "", "arm v7"},
 	{"linux", "arm64", "8", "", "", "", "arm v8"},
 	{"linux", "386", "", "i386", "", "", ""},
+	{"dragonfly", "amd64", "", "", "", "chainguard/dragonfly", ""},
 }
 
 // setDefault returns the variable value read using os.Getenv and d when the value read is empty.

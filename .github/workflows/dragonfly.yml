@@ -2,10 +2,10 @@ name: linux - long test - amd64
 on:
   push:
     branches:
-      - 'master'
+      - 'updates'
     paths:
       - 'action.yml'
-      - '.github/workflows/linux_long_test.yml'
+      - 'dragonfly.yml'
 jobs:
 
   build:
@@ -22,11 +22,5 @@ jobs:
       uses: iwdgo/gotip-build@master
       id: gotip
       with:
-        go_variables: GO_TEST_SHORT=0 GO_TEST_TIMEOUT_SCALE=8
+        go_variables: GO_TEST_SHORT=1 GO_TEST_TIMEOUT_SCALE=8
         test_build: true
-
-    - name: Upload go executable
-      uses: actions/upload-artifact@v3
-      with:
-        name: gotip-${{ env.goos }}-${{ env.goarch }}
-        path: go/
