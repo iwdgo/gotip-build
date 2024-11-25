@@ -19,7 +19,7 @@ jobs:
       id: go
 
     - name: Build go from tip
-      uses: iwdgo/gotip-build@master
+      uses: iwdgo/gotip-build@updates
       id: gotip
       with:
         go_variables: GO_TEST_SHORT=1 GO_TEST_TIMEOUT_SCALE=8 GOOS=dragonfly GOARCH=amd64
