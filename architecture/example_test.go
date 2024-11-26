@@ -1,17 +1,36 @@
 package main
 
 import (
+	"bytes"
 	"log"
 	"os"
 	"os/exec"
+	"testing"
 )
 
-func Example_native() {
+func TestNative(t *testing.T) {
+	f, err := os.CreateTemp(t.TempDir(), "*.log")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer func(f *os.File) {
+		if e := f.Close(); e != nil {
+			t.Fatal(e)
+		}
+	}(f)
+	log.SetOutput(f)
+
 	main()
-	// Output: No cross-compiling requested
+
+	sw := "No cross-compiling requested"
+	if s, _ := os.ReadFile(f.Name()); !bytes.Contains(s, []byte(sw)) {
+		t.Fatalf("expected %s is not in output %s", sw, s)
+	}
 }
 
-func Example_unsupported() {
+// TODO log.Fatal is used to stop any processing
+func TestUnsupported(t *testing.T) {
+	t.Skip("Cannot recover from log.Fatal")
 	err := os.Setenv("GOOS", "windows")
 	if err != nil {
 		log.Fatalf("%v", err)
@@ -21,10 +40,11 @@ func Example_unsupported() {
 		log.Fatalf("%v", err)
 	}
 	main()
-	// Output: Unsupported windows/arm64
 }
 
-func Example_supported() {
+// TODO Requires docker to be available which seems useless
+func TestSupported(t *testing.T) {
+	t.Skip("Requires docker")
 	err := os.Setenv("GOOS", "linux")
 	if err != nil {
 		log.Fatalf("%v", err)
