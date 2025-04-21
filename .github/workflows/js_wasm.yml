@@ -54,7 +54,7 @@ jobs:
         #../lib/wasm/go_js_wasm_exec ../bin/go run cmd/dist test
 
     - name: Upload go executable
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: ${{ env.crosscompile == 'true' }}
       with:
         name: gotip-${{ env.goos }}-${{ env.arch }}

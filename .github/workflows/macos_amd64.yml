@@ -30,7 +30,7 @@ jobs:
         go_variables: GO_TEST_SHORT=${{ matrix.long_test }}  GO_TEST_TIMEOUT_SCALE=5
 
     - name: Upload go executable
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: gotip-${{ env.goos }}-${{ env.goarch }}
         path: go

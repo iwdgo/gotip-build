@@ -131,7 +131,7 @@ jobs:
         # ./lib/wasm/go_wasip1_wasm_exec ./bin/go test ./...
 
     - name: Upload go executable
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: ${{ env.crosscompile == 'true' }}
       with:
         name: gotip-${{ env.goos }}-${{ env.arch }}

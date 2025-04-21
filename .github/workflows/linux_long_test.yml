@@ -26,7 +26,7 @@ jobs:
         test_build: true
 
     - name: Upload go executable
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: gotip-${{ env.goos }}-${{ env.goarch }}
         path: go/
