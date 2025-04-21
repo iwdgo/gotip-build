@@ -51,7 +51,7 @@ runs:
       if: ${{ inputs.test_build == 'true' && env.crosscompile == 'false' }}
       run: |
         cd go/src
-        .\run.bat --no-rebuild  --no-local
+        .\run.bat --no-rebuild
 
     - name: Test cross-compile
       shell: powershell
