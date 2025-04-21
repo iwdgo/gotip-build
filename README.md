@@ -1,7 +1,7 @@
 # Build and test Go from source
 
 Go must be available to build the language from source.
-The [toolchain](https://go.dev/doc/toolchain) for testing is go1.22.
+The [toolchain](https://go.dev/doc/toolchain) for testing is go1.24.x
 
 Besides the [install](https://go.dev/doc/install/source) documentation, more details on [wiki](https://github.com/iwdgo/gotip-build/wiki).
 
