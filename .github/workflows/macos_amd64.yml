@@ -14,7 +14,7 @@ jobs:
         long_test: [ '0', '1' ]
       fail-fast: false
     name: Build
-    runs-on: macos-13
+    runs-on: macos-latest-large
     steps:
 
     - name: Set up Go

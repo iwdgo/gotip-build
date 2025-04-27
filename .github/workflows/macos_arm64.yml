@@ -5,7 +5,7 @@ on:
       - 'master'
     paths:
       - 'action.yml'
-      - '.github/workflows/macos_test.yml'
+      - 'github/workflows/macos_arm64.yml'
 jobs:
 
   build:
